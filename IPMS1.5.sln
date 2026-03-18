@@ -1,0 +1,52 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ipms1.5", "ipms1.5", "{D342781B-391A-4631-BB37-4CD17937DC55}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""$/IPMS 1.5", IIPBAAAA"
+		SccAuxPath = ""
+		SccLocalPath = ".."
+		SccProvider = "MSSCCI:Microsoft Visual SourceSafe"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"
+		Debug.AspNetCompiler.VirtualPath = "/IPMS1.5"
+		Debug.AspNetCompiler.PhysicalPath = "ipms1.5\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\IPMS1.5\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/IPMS1.5"
+		Release.AspNetCompiler.PhysicalPath = "ipms1.5\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\IPMS1.5\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "4072"
+		SlnRelativePath = "ipms1.5\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D342781B-391A-4631-BB37-4CD17937DC55}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{D342781B-391A-4631-BB37-4CD17937DC55}.Debug|.NET.Build.0 = Debug|Any CPU
+		{D342781B-391A-4631-BB37-4CD17937DC55}.Debug|.NET.Deploy.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SccWebProject1 = true
+		SccProjectUniqueName1 = ipms1.5
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = ipms1.5\\
+		SccProjectEnlistmentChoice1 = 2
+	EndGlobalSection
+EndGlobal
