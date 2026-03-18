@@ -1,0 +1,30 @@
+<html>
+<head>
+<style type="text/css">
+.PIR_Header     {
+                    /* display:block; */
+                    width:247mm;
+                    height:9mm;
+                    font-family:Arial Sans-Serif;
+                    font-size: large;
+                    padding-left:10mm;
+                    /* padding:1mm 0mm 1mm 10mm; */
+                    color:White;
+                    background-color:#4978AE;
+                    background-image:url("images/PIR_Header.jpg");
+                    background-position:right;
+                    background-repeat:no-repeat;
+                }
+.PIR_Footer     {
+                    /* display:block; */
+                    width:247mm;
+                    height:8.1mm;
+                    background-image:url("images/PIR_Footer.jpg");
+                    background-position:right;
+                    background-repeat:no-repeat;
+                }
+</style>
+<body>
+<span id="ctl_ctlPIR_ExecutiveSummary_lblHeaderText" class="PIR_Header">AM-CPS-XSP-Global</span>
+</body>
+</html>

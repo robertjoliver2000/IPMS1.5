@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SummaryB_ProfitLossImage.aspx.cs" Inherits="Images_SummaryB_ProfitLossImage" %>
