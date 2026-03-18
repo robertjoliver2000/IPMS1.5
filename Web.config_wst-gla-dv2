@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<configuration>
+	<connectionStrings>
+    <!-- wst-gla-dv2\SS2005 Settings -->
+
+    <!-- using ToolkitInstallAccount
+    <add name="Reports_ConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_UAT;User ID=ToolkitInstallAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    <add name="PMOToolkit_ProjectPortfolio2006ConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_UAT;User ID=ToolkitInstallAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    -->
+		
+	<!-- Data Access Wrapper class uses this connstring. DO NOT REMOVE -->	
+     <add name="GlobalConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01;" providerName="System.Data.SqlClient"  />
+
+    <!-- using GlobalIGProjectPortfolioUserAccount -->
+    <add name="Reports_ConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    <add name="PMOToolkit_ProjectPortfolio2006ConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+
+	<!-- using PMOToolkit_GlobalIG_ProjectPortfolioLive_PROD
+    <add name="Reports_ConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_PROD;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    <add name="PMOToolkit_ProjectPortfolio2006ConnectionString" connectionString="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_PROD;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    -->
+
+    <!-- DBGER3647 Settings -->
+    <!--
+    <add name="Reports_ConnectionString" connectionString="Data Source=DBGERWS3647;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio_Uat;User ID=IGUserAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    <add name="PMOToolkit_ProjectPortfolio2006ConnectionString" connectionString="Data Source=DBGERWS3647;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio_Uat;User ID=IGUserAccount;Password=B00tc4mp01" providerName="System.Data.SqlClient"/>
+    -->    
+    
+  </connectionStrings>
+    <appSettings>
+
+      <!-- SuthCo Development settings -->
+      <!-- using GlobalIGProjectPortfolioUserAccount -->
+      <add key="connectionString" value="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01;"/>
+      <add key="PMOToolkit_ProjectPortfolio2006ConnectionString" value="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01;"/>
+      <!-- using PMOToolkit_GlobalIG_ProjectPortfolioLive_PROD
+      <add key="connectionString" value="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_PROD;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01;"/>
+      <add key="PMOToolkit_ProjectPortfolio2006ConnectionString" value="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_PROD;User ID=GlobalIGProjectPortfolioUserAccount;Password=B00tc4mp01;"/>
+      -->
+
+      <!-- using ToolkitInstallAccount
+      <add key="connectionString" value="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_UAT;User ID=ToolkitInstallAccount;Password=B00tc4mp01;"/>
+      <add key="PMOToolkit_ProjectPortfolio2006ConnectionString" value="Data Source=wst-gla-dv2\SS2005;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolioLive_UAT;User ID=ToolkitInstallAccount;Password=B00tc4mp01;"/>
+      -->
+      
+      <!-- DBGERWS3647 settings for UAT -->
+      <!--
+      <add key="connectionString" value="Data Source=DBGERWS3647;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio_Uat;User ID=IGUserAccount;Password=B00tc4mp01;"/>
+      <add key="PMOToolkit_ProjectPortfolio2006ConnectionString" value="Data Source=DBGERWS3647;Initial Catalog=PMOToolkit_GlobalIG_ProjectPortfolio_Uat;User ID=IGUserAccount;Password=B00tc4mp01;"/>
+      -->
+      
+      <add key="ApplicationEmailAddress" value="investment.governance@ipms.ig.gto.intranet.db.com"/>
+		  <!-- START LDAP server -->
+		  <add key="HostName" value="ldapb2.uk.db.com"/>
+		  <add key="PortNo" value="389"/>
+		  <add key="ExtraInfo" value="/ou=people,ou=global,dc=dbgroup,dc=com"/>
+		  <add key="BindDN" value="uid=PMOToolkit,ou=Directory Administrators,dc=dbgroup, dc=com"/>
+		  <add key="bindPWD" value="tRfxY82D"/>
+		  <!-- END LDAP server -->
+		  <!-- START Security-->
+		  <add key="DefaultSecurityID" value="27"/>
+		  <!-- END Security-->
+		  <!-- Start Corda Server -->
+		  <add key="CordaServerAddress" value="esemeatoolkit.de.db.com"/>
+		  <add key="BaseAppUrl" value="http://dbgerws3647/projectportfolio"/>
+		  <!-- End Corda Server -->
+		  <!-- Start Application UI Settings -->
+		  <add key="ApplicationName" value="UAT ::: IPMS (Initiative &amp; Portfolio Management System)"/>
+		  <!-- End Application UI Settings -->
+      <!-- Start Test Email Settings - Used to when wanting to test the notication parts of the system -->
+      <add key="UseTestEmailAddresses" value="true"/> <!-- Will only work if set to the string "true" -->
+      <add key="xTestEmailAddresses" value="'Support@suthco.com, GTO-COO-IG@list.db.com'"/> <!-- Always include the single quotes around the email addresses -->
+      <add key="TestEmailAddresses" value="'Support@suthco.com'"/> <!-- Always include the single quotes around the email addresses -->
+      <!-- End of Test Email Settings-->
+	</appSettings>
+	<system.net>
+		<mailSettings>
+			<smtp deliveryMethod="Network" from="investment.governance@ipms.ig.gto.intranet.db.com">
+				<network host="127.0.0.1" defaultCredentials="true" port="25"/>
+			</smtp>
+		</mailSettings>
+	</system.net>
+	<system.web>
+		<!--  DYNAMIC DEBUG COMPILATION
+          Set compilation debug="true" to enable ASPX debugging.  Otherwise, setting this value to
+          false will improve runtime performance of this application. 
+          Set compilation debug="true" to insert debugging symbols (.pdb information)
+          into the compiled page. Because this creates a larger file that executes
+          more slowly, you should set this value to true only when debugging and to
+          false at all other times. For more information, refer to the documentation about
+          debugging ASP.NET files.
+    -->
+		<httpHandlers>
+			<add path="Reserved.ReportViewerWebControl.axd" verb="*" type="Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" validate="false"/>
+		</httpHandlers>
+		<compilation debug="true" defaultLanguage="c#">
+			<compilers>
+				<compiler language="c#" extension=".cs" type="Microsoft.CSharp.CSharpCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" compilerOptions="/d:DEBUG;TRACE"/>
+			</compilers>
+			<buildProviders>
+				<add extension=".rdlc" type="Microsoft.Reporting.RdlBuildProvider, Microsoft.ReportViewer.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+			</buildProviders>
+			<assemblies>
+				<add assembly="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+				<add assembly="System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="System.DirectoryServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="Microsoft.ReportViewer.WebForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="ADODB, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/></assemblies></compilation>
+		<!--  CUSTOM ERROR MESSAGES
+          Set customErrors mode="On" or "RemoteOnly" to enable custom error messages, "Off" to disable. 
+          Add <error> tags for each of the errors you want to handle.
+
+          "On" Always display custom (friendly) messages.
+          "Off" Always display detailed ASP.NET error information.
+          "RemoteOnly" Display custom (friendly) messages only to users not running 
+           on the local Web server. This setting is recommended for security purposes, so 
+           that you do not display application detail information to remote clients.
+    -->
+		<customErrors mode="Off"/>
+		<!--  AUTHENTICATION 
+          This section sets the authentication policies of the application. Possible modes are "Windows", 
+          "Forms", "Passport" and "None"
+
+          "None" No authentication is performed. 
+          "Windows" IIS performs authentication (Basic, Digest, or Integrated Windows) according to 
+           its settings for the application. Anonymous access must be disabled in IIS. 
+          "Forms" You provide a custom form (Web page) for users to enter their credentials, and then 
+           you authenticate them in your application. A user credential token is stored in a cookie.
+          "Passport" Authentication is performed via a centralized authentication service provided
+           by Microsoft that offers a single logon and core profile services for member sites.
+    -->
+		<authentication mode="Windows"/>
+		<!--  AUTHORIZATION 
+          This section sets the authorization policies of the application. You can allow or deny access
+          to application resources by user or role. Wildcards: "*" mean everyone, "?" means anonymous 
+          (unauthenticated) users.
+    -->
+		<authorization>
+			<!-- DONT CHANGE THIS. IT'S VERY DELIBERATELY HERE FOR THE PDF CONVERTER TO WORK 
+           THE default.aspx PAGE IS PROTECTED AT THE END OF THE FILE FOR SECURITY. -->
+			<!--<deny users="?"/>-->
+			<allow users="*"/>
+			<!-- Allow all users -->
+			<!--  <allow     users="[comma separated list of users]"
+                             roles="[comma separated list of roles]"/>
+                  <deny      users="[comma separated list of users]"
+                             roles="[comma separated list of roles]"/>
+            -->
+		</authorization>
+		<!--
+		<identity impersonate="true" userName="Administrator" password="apollo"/>
+		  APPLICATION-LEVEL TRACE LOGGING
+          Application-level tracing enables trace log output for every page within an application. 
+          Set trace enabled="true" to enable application trace logging.  If pageOutput="true", the
+          trace information will be displayed at the bottom of each page.  Otherwise, you can view the 
+          application trace log by browsing the "trace.axd" page from your web application
+          root. 
+    -->
+		<trace enabled="false" requestLimit="10" pageOutput="false" traceMode="SortByTime" localOnly="true"/>
+		<!--  SESSION STATE SETTINGS
+          By default ASP.NET uses cookies to identify which requests belong to a particular session. 
+          If cookies are not available, a session can be tracked by adding a session identifier to the URL. 
+          To disable cookies, set sessionState cookieless="true".
+    -->
+		<sessionState mode="InProc" stateConnectionString="tcpip=127.0.0.1:42424" sqlConnectionString="data source=127.0.0.1;Trusted_Connection=yes" cookieless="false" timeout="1200"/>
+		<!--  GLOBALIZATION
+          This section sets the globalization settings of the application. 
+    -->
+		<globalization requestEncoding="utf-8" responseEncoding="utf-8"/>
+		<xhtmlConformance mode="Legacy"/></system.web>
+	<location path="default.aspx">
+		<system.web>
+			<authorization>
+				<deny users="?"/>
+			</authorization>
+		</system.web>
+	</location>
+	<location path="admin.aspx">
+		<system.web>
+			<authorization>
+				<deny users="?"/>
+			</authorization>
+		</system.web>
+	</location>
+</configuration>
