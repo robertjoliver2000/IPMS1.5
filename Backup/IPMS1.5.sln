@@ -1,0 +1,48 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\ipms1.5\", "ipms1.5", "{D342781B-391A-4631-BB37-4CD17937DC55}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""$/IPMS 1.5", IIPBAAAA"
+		SccAuxPath = ""
+		SccLocalPath = ".."
+		SccProvider = "MSSCCI:Microsoft Visual SourceSafe"
+		Debug.AspNetCompiler.VirtualPath = "/IPMS1.5"
+		Debug.AspNetCompiler.PhysicalPath = "\IPMS1.5\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\IPMS1.5\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/IPMS1.5"
+		Release.AspNetCompiler.PhysicalPath = "\IPMS1.5\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\IPMS1.5\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "4072"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SccWebProject1 = true
+		SccProjectUniqueName1 = ipms1.5
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = ipms1.5\\
+		SccProjectEnlistmentChoice1 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D342781B-391A-4631-BB37-4CD17937DC55}.Debug|.NET.ActiveCfg = Debug|.NET
+		{D342781B-391A-4631-BB37-4CD17937DC55}.Debug|.NET.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

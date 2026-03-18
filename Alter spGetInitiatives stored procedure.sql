@@ -1,0 +1,6 @@
+ALTER PROCEDURE spGetInitiatives
+AS
+BEGIN
+SELECT ExternalUniqueIdentifier,Initiative.InitiativeID,IGBusinessAreaCode,IGIdentifierCode,IGVersionNumber,IGReviewDate,IGIdentifier,Name,GTOInitiativeManager,GTOInitiativeManagerID,IGApprovalDate,IGApprovalStatus,IGApprovalStatusID,PPR_OverallStatus,PPR_CostStatus,PPR_DeliverablesStatus,PPR_TimeStatus,PrimarySponsoringArea,SubmissionDate,IGApprovalCommittee,PPR_RisksStatus,PPR_BenefitsStatus FROM Initiative
+INNER JOIN InitiativeExtended ON Initiative.InitiativeID=InitiativeExtended.InitiativeID
+END

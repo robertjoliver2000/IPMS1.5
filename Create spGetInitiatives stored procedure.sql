@@ -1,0 +1,3 @@
+CREATE PROCEDURE spGetInitiatives
+AS
+SELECT ExternalUniqueIdentifier,InitiativeID,IGBusinessAreaCode,IGIdentifierCode,IGVersionNumber,IGReviewDate,IGIdentifier,Name,GTOInitiativeManager,GTOInitiativeManagerID FROM Initiative
