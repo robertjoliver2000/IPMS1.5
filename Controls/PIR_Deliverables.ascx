@@ -1,0 +1,91 @@
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PIR_Deliverables.ascx.cs" Inherits="ProjectPortfolio.Controls.PIR_Deliverables" %>
+<script language="javascript">
+<!--
+function popupWindowAddDeliverable(initiativeID, deliverableID)
+{
+	var dialogwidth = 500
+	var dialogheight = 200
+	var leftpos = (screen.width - dialogwidth) / 2
+	var toppos = (screen.height - dialogheight) / 2
+	var attr = "left=" + leftpos + ",top=" + toppos + ",resizable=no,scroll=yes,width="+
+		dialogwidth + "px,height=" + dialogheight + 
+		"px,titlebar=no,status=no,dependent=yes"
+    
+    var link = "PIRDeliverable.aspx?InitiativeID=" + initiativeID;
+    
+    if (deliverableID != null) 
+        link = link + "&record=" + deliverableID
+
+    var returnCode;
+    
+	returnCode = window.showModalDialog(link, "deliverable_dialog", 
+	                "dialogWidth:520px;dialogHeight:285px;status:no;resizable:no;scroll:yes");
+					
+    if (returnCode==1)
+    {
+        if(window.document.forms[0].onsubmit())
+        {
+            AllowOneTimeSubmit();
+            window.document.forms[0].submit();
+        }
+    }
+}
+-->
+</script>
+
+<table style="border: 1px solid #CCCCCC; width:100%;">
+	<tr>
+		<td class="PIRTitle">Major Program Deliverables</td>
+	</tr>
+	<tr>
+	    <td>
+			<asp:repeater id="rptProgramDeliverables" EnableViewState="False" runat="server" OnItemDataBound="rptProgramDeliverables_ItemDataBound" OnItemCommand="rptProgramDeliverables_ItemCommand">
+				<HeaderTemplate>
+		            <table class="datatable" cellspacing="0" cellpadding="3" rules="all" style="width:100%;">
+		            <colgroup>
+		                <col style="width:380px; text-align:left;" xclass="incell" />
+		                <col style="width:250px; text-align:left;" xclass="incell" />
+		                <col style="width:80px; text-align:center;" xclass="incell" />
+		                <col style="width:80px; text-align:center;" xclass="incell" />
+		                <col style="width:80px; text-align:center;" xclass="incell" />
+		                <col style="width:80px; text-align:center;" xclass="incell" />
+		            </colgroup>
+					<tr runat="Server" id="trHeader" style="height:30px;">
+						<td class="headcell">Key Deliverables</td>
+						<td class="headcell">Commentary</td>
+						<td class="headcell">Status</td>
+						<td class="headcell">Plan</td>
+						<td class="headcell">Actual</td>
+						<td class="headcell">Variance<br />(in days)</td>
+					</tr>
+				</HeaderTemplate>
+				<ItemTemplate>
+					<tr runat="Server" id="trItem">
+						<td runat="Server" id="tdName">
+						    <table cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+						        <tr>
+						            <td style="width:20px;"><asp:ImageButton runat="server" ID="imgDelete" CausesValidation="false" ImageUrl="~/Images/delete.gif" CommandArgument='<%# DataBinder.Eval(Container.DataItem,"DeliverableID")%>' CommandName="Delete"></asp:ImageButton></td>
+						            <td><a runat="server" id="lnkEditDeliverable" href="#" onclick='<%# "javascript:popupWindowAddDeliverable(" + DataBinder.Eval(Container.DataItem,"InitiativeID") + ", " + DataBinder.Eval(Container.DataItem,"DeliverableID") + "); return false;"%>'><%# DataBinder.Eval(Container.DataItem,"Name")%></a></td>
+						        </tr>
+						    </table>
+					    </td>
+						<td><%# DataBinder.Eval(Container.DataItem,"PIRCommentary")%></td>
+						<td class="PIRRagText"><%# DataBinder.Eval(Container.DataItem,"PIRStatus")%></td>
+						<td><%# DataBinder.Eval(Container.DataItem,"PIRPlanDate", "{0:d}")%></td>
+						<td><%# DataBinder.Eval(Container.DataItem,"PIRActualDate", "{0:d}")%></td>
+						<td><%# DataBinder.Eval(Container.DataItem,"PIRDateVariance", "{0:d}")%></td>
+					</tr>
+				</ItemTemplate>
+				<FooterTemplate>
+				    </table>
+				</FooterTemplate>
+            </asp:repeater>	    
+	    </td>
+	</tr>
+	<tr style="height:20px" valign="middle">
+	    <td>
+			<button runat="server" id="btnAddDeliverable" style="FONT-SIZE: 10px; FONT-FAMILY: Verdana" type="button">
+				Add Deliverable</button>
+	    </td>
+	</tr>	
+</table>
