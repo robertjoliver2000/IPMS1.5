@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Reports" targetNamespace="http://tempuri.org/BenefitsReport.xsd" xmlns:mstns="http://tempuri.org/BenefitsReport.xsd" xmlns="http://tempuri.org/BenefitsReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Reports_ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="True" Modifier="Assembly" Name="Reports_ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Reports_ConnectionString.ConnectionString" Provider="System.Data.SqlClient">
+          </Connection>
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwReportBenefitsTableAdapter" GeneratorDataComponentClassName="vwReportBenefitsTableAdapter" Name="vwReportBenefits" UserDataComponentName="vwReportBenefitsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.vwReportBenefits" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="True" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="False">
+                    <CommandText>SELECT Level7Name, Level10Code, Level10Name, CRTotal2006, CRTotal2007, RGTotal2006, RGTotal2007 FROM dbo.vwReportBenefits</CommandText>
+                    <Parameters>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Level7Name" DataSetColumn="Level7Name" />
+              <Mapping SourceColumn="Level10Code" DataSetColumn="Level10Code" />
+              <Mapping SourceColumn="Level10Name" DataSetColumn="Level10Name" />
+              <Mapping SourceColumn="CRTotal2006" DataSetColumn="CRTotal2006" />
+              <Mapping SourceColumn="CRTotal2007" DataSetColumn="CRTotal2007" />
+              <Mapping SourceColumn="RGTotal2006" DataSetColumn="RGTotal2006" />
+              <Mapping SourceColumn="RGTotal2007" DataSetColumn="RGTotal2007" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwReportBubbleChartTableAdapter" GeneratorDataComponentClassName="vwReportBubbleChartTableAdapter" Name="vwReportBubbleChart" UserDataComponentName="vwReportBubbleChartTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.vwReportBubbleChart" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="True" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="False">
+                    <CommandText>SELECT InitiativeID, Spend, Benefit, Year, InitiativeImpactCategory, TotalSpend FROM dbo.vwReportBubbleChart</CommandText>
+                    <Parameters>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="InitiativeID" DataSetColumn="InitiativeID" />
+              <Mapping SourceColumn="Spend" DataSetColumn="Spend" />
+              <Mapping SourceColumn="Benefit" DataSetColumn="Benefit" />
+              <Mapping SourceColumn="Year" DataSetColumn="Year" />
+              <Mapping SourceColumn="InitiativeImpactCategory" DataSetColumn="InitiativeImpactCategory" />
+              <Mapping SourceColumn="TotalSpend" DataSetColumn="TotalSpend" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwReportCommitteeViewTableAdapter" GeneratorDataComponentClassName="vwReportCommitteeViewTableAdapter" Name="vwReportCommitteeView" UserDataComponentName="vwReportCommitteeViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.vwReportCommitteeView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="True">
+                    <CommandText>SELECT     IGApprovalCommittee, TotalApprovedInitiatives, TotalInitiatives, TotalSpendApprovedForCurrentYear, TotalSpendForCurrentYear
+FROM         vwReportCommitteeView</CommandText>
+                    <Parameters>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IGApprovalCommittee" DataSetColumn="IGApprovalCommittee" />
+              <Mapping SourceColumn="TotalInitiatives" DataSetColumn="TotalInitiatives" />
+              <Mapping SourceColumn="TotalApprovedInitiatives" DataSetColumn="TotalApprovedInitiatives" />
+              <Mapping SourceColumn="TotalSpendApprovedForCurrentYear" DataSetColumn="TotalSpendApprovedForCurrentYear" />
+              <Mapping SourceColumn="TotalSpendForCurrentYear" DataSetColumn="TotalSpendForCurrentYear" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwReportClientViewTableAdapter" GeneratorDataComponentClassName="vwReportClientViewTableAdapter" Name="vwReportClientView" UserDataComponentName="vwReportClientViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.vwReportClientView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="True">
+                    <CommandText>SELECT     Owner AS BusinessArea, Name AS Business, Period, Type AS SpendType, ApprovalYear, TotalSponsorAmount
+FROM         vwReportClientView</CommandText>
+                    <Parameters>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="BusinessArea" DataSetColumn="BusinessArea" />
+              <Mapping SourceColumn="Business" DataSetColumn="Business" />
+              <Mapping SourceColumn="Period" DataSetColumn="Period" />
+              <Mapping SourceColumn="SpendType" DataSetColumn="SpendType" />
+              <Mapping SourceColumn="ApprovalYear" DataSetColumn="ApprovalYear" />
+              <Mapping SourceColumn="TotalSponsorAmount" DataSetColumn="TotalSponsorAmount" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_CommitteeViewTableAdapter" GeneratorDataComponentClassName="spReport_CommitteeViewTableAdapter" Name="spReport_CommitteeView" UserDataComponentName="spReport_CommitteeViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_CommitteeView" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="True">
+                    <CommandText>dbo.spReport_CommitteeView</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="False" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@FinancialCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="False" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IGApprovalCommittee" DataSetColumn="IGApprovalCommittee" />
+              <Mapping SourceColumn="TotalApprovedInitiatives" DataSetColumn="TotalApprovedInitiatives" />
+              <Mapping SourceColumn="TotalInitiatives" DataSetColumn="TotalInitiatives" />
+              <Mapping SourceColumn="TotalSpendApprovedForCurrentYear" DataSetColumn="TotalSpendApprovedForCurrentYear" />
+              <Mapping SourceColumn="TotalSpendForCurrentYear" DataSetColumn="TotalSpendForCurrentYear" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_BenefitvsSpend_LinesTableAdapter" GeneratorDataComponentClassName="spReport_BenefitvsSpend_LinesTableAdapter" Name="spReport_BenefitvsSpend_Lines" UserDataComponentName="spReport_BenefitvsSpend_LinesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_BenefitvsSpend_Lines" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_BenefitvsSpend_Lines</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Spend" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Benefit" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@FinancialCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Interval" DataSetColumn="Interval" />
+              <Mapping SourceColumn="PeriodID" DataSetColumn="PeriodID" />
+              <Mapping SourceColumn="TotalBenefit" DataSetColumn="TotalBenefit" />
+              <Mapping SourceColumn="TotalSpend" DataSetColumn="TotalSpend" />
+              <Mapping SourceColumn="BenefitCost" DataSetColumn="BenefitCost" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_ProfitLossTableTableAdapter" GeneratorDataComponentClassName="spReport_ProfitLossTableTableAdapter" Name="spReport_ProfitLossTable" UserDataComponentName="spReport_ProfitLossTableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjectPortfolioLive_UAT.dbo.spReport_ProfitLossTable" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_ProfitLossTable</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Spend" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Benefit" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@FinancialCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="RevenueGeneration" DataSetColumn="RevenueGeneration" />
+              <Mapping SourceColumn="CostReduction" DataSetColumn="CostReduction" />
+              <Mapping SourceColumn="RiskReduction" DataSetColumn="RiskReduction" />
+              <Mapping SourceColumn="CostAvoidance" DataSetColumn="CostAvoidance" />
+              <Mapping SourceColumn="RevenueLossAvoidance" DataSetColumn="RevenueLossAvoidance" />
+              <Mapping SourceColumn="TotalBenefit" DataSetColumn="TotalBenefit" />
+              <Mapping SourceColumn="CTBSpend" DataSetColumn="CTBSpend" />
+              <Mapping SourceColumn="RTBSpend" DataSetColumn="RTBSpend" />
+              <Mapping SourceColumn="TotalSpend" DataSetColumn="TotalSpend" />
+              <Mapping SourceColumn="RTBExisting" DataSetColumn="RTBExisting" />
+              <Mapping SourceColumn="MANSpend" DataSetColumn="MANSpend" />
+              <Mapping SourceColumn="RevenueGenerationQ1" DataSetColumn="RevenueGenerationQ1" />
+              <Mapping SourceColumn="RevenueGenerationQ2" DataSetColumn="RevenueGenerationQ2" />
+              <Mapping SourceColumn="RevenueGenerationQ3" DataSetColumn="RevenueGenerationQ3" />
+              <Mapping SourceColumn="RevenueGenerationQ4" DataSetColumn="RevenueGenerationQ4" />
+              <Mapping SourceColumn="CostReductionQ1" DataSetColumn="CostReductionQ1" />
+              <Mapping SourceColumn="CostReductionQ2" DataSetColumn="CostReductionQ2" />
+              <Mapping SourceColumn="CostReductionQ3" DataSetColumn="CostReductionQ3" />
+              <Mapping SourceColumn="CostReductionQ4" DataSetColumn="CostReductionQ4" />
+              <Mapping SourceColumn="RiskReductionQ1" DataSetColumn="RiskReductionQ1" />
+              <Mapping SourceColumn="RiskReductionQ2" DataSetColumn="RiskReductionQ2" />
+              <Mapping SourceColumn="RiskReductionQ3" DataSetColumn="RiskReductionQ3" />
+              <Mapping SourceColumn="RiskReductionQ4" DataSetColumn="RiskReductionQ4" />
+              <Mapping SourceColumn="CostAvoidanceQ1" DataSetColumn="CostAvoidanceQ1" />
+              <Mapping SourceColumn="CostAvoidanceQ2" DataSetColumn="CostAvoidanceQ2" />
+              <Mapping SourceColumn="CostAvoidanceQ3" DataSetColumn="CostAvoidanceQ3" />
+              <Mapping SourceColumn="CostAvoidanceQ4" DataSetColumn="CostAvoidanceQ4" />
+              <Mapping SourceColumn="RevenueLossAvoidanceQ1" DataSetColumn="RevenueLossAvoidanceQ1" />
+              <Mapping SourceColumn="RevenueLossAvoidanceQ2" DataSetColumn="RevenueLossAvoidanceQ2" />
+              <Mapping SourceColumn="RevenueLossAvoidanceQ3" DataSetColumn="RevenueLossAvoidanceQ3" />
+              <Mapping SourceColumn="RevenueLossAvoidanceQ4" DataSetColumn="RevenueLossAvoidanceQ4" />
+              <Mapping SourceColumn="TotalBenefitQ1" DataSetColumn="TotalBenefitQ1" />
+              <Mapping SourceColumn="TotalBenefitQ2" DataSetColumn="TotalBenefitQ2" />
+              <Mapping SourceColumn="TotalBenefitQ3" DataSetColumn="TotalBenefitQ3" />
+              <Mapping SourceColumn="TotalBenefitQ4" DataSetColumn="TotalBenefitQ4" />
+              <Mapping SourceColumn="CTBSpendQ1" DataSetColumn="CTBSpendQ1" />
+              <Mapping SourceColumn="CTBSpendQ2" DataSetColumn="CTBSpendQ2" />
+              <Mapping SourceColumn="CTBSpendQ3" DataSetColumn="CTBSpendQ3" />
+              <Mapping SourceColumn="CTBSpendQ4" DataSetColumn="CTBSpendQ4" />
+              <Mapping SourceColumn="MANSpendQ1" DataSetColumn="MANSpendQ1" />
+              <Mapping SourceColumn="MANSpendQ2" DataSetColumn="MANSpendQ2" />
+              <Mapping SourceColumn="MANSpendQ3" DataSetColumn="MANSpendQ3" />
+              <Mapping SourceColumn="MANSpendQ4" DataSetColumn="MANSpendQ4" />
+              <Mapping SourceColumn="RTBSpendQ1" DataSetColumn="RTBSpendQ1" />
+              <Mapping SourceColumn="RTBSpendQ2" DataSetColumn="RTBSpendQ2" />
+              <Mapping SourceColumn="RTBSpendQ3" DataSetColumn="RTBSpendQ3" />
+              <Mapping SourceColumn="RTBSpendQ4" DataSetColumn="RTBSpendQ4" />
+              <Mapping SourceColumn="TotalSpendQ1" DataSetColumn="TotalSpendQ1" />
+              <Mapping SourceColumn="TotalSpendQ2" DataSetColumn="TotalSpendQ2" />
+              <Mapping SourceColumn="TotalSpendQ3" DataSetColumn="TotalSpendQ3" />
+              <Mapping SourceColumn="TotalSpendQ4" DataSetColumn="TotalSpendQ4" />
+              <Mapping SourceColumn="RTBExistingQ1" DataSetColumn="RTBExistingQ1" />
+              <Mapping SourceColumn="RTBExistingQ2" DataSetColumn="RTBExistingQ2" />
+              <Mapping SourceColumn="RTBExistingQ3" DataSetColumn="RTBExistingQ3" />
+              <Mapping SourceColumn="RTBExistingQ4" DataSetColumn="RTBExistingQ4" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_ClientViewTableAdapter" GeneratorDataComponentClassName="spReport_ClientViewTableAdapter" Name="spReport_ClientView" UserDataComponentName="spReport_ClientViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_ClientView" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_ClientView</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@SpendCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@FinancialCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@InitiativeStatus" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="BusinessArea" DataSetColumn="BusinessArea" />
+              <Mapping SourceColumn="Business" DataSetColumn="Business" />
+              <Mapping SourceColumn="SumPreCurrent" DataSetColumn="SumPreCurrent" />
+              <Mapping SourceColumn="SumCurrent" DataSetColumn="SumCurrent" />
+              <Mapping SourceColumn="SumCurrent1" DataSetColumn="SumCurrent1" />
+              <Mapping SourceColumn="SumCurrent2" DataSetColumn="SumCurrent2" />
+              <Mapping SourceColumn="SumCurrent3" DataSetColumn="SumCurrent3" />
+              <Mapping SourceColumn="SumCurrent4" DataSetColumn="SumCurrent4" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+              <Mapping SourceColumn="Committees" DataSetColumn="Committees" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_BenefitVsSpend_BenefitsTableTableAdapter" GeneratorDataComponentClassName="spReport_BenefitVsSpend_BenefitsTableTableAdapter" Name="spReport_BenefitVsSpend_BenefitsTable" UserDataComponentName="spReport_BenefitVsSpend_BenefitsTableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_BenefitVsSpend_BenefitsTable" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_BenefitVsSpend_BenefitsTable</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@InitiativeStatus" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Benefit" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Impact" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CustomGrouping" DataSetColumn="CustomGrouping" />
+              <Mapping SourceColumn="Level10Name" DataSetColumn="Level10Name" />
+              <Mapping SourceColumn="PreCurrentYearBenefitRG" DataSetColumn="PreCurrentYearBenefitRG" />
+              <Mapping SourceColumn="PreCurrentYearBenefitCR" DataSetColumn="PreCurrentYearBenefitCR" />
+              <Mapping SourceColumn="CurrentYearBenefitRG" DataSetColumn="CurrentYearBenefitRG" />
+              <Mapping SourceColumn="CurrentYearBenefitCR" DataSetColumn="CurrentYearBenefitCR" />
+              <Mapping SourceColumn="Current1YearBenefitRG" DataSetColumn="Current1YearBenefitRG" />
+              <Mapping SourceColumn="Current1YearBenefitCR" DataSetColumn="Current1YearBenefitCR" />
+              <Mapping SourceColumn="Current2YearBenefitRG" DataSetColumn="Current2YearBenefitRG" />
+              <Mapping SourceColumn="Current2YearBenefitCR" DataSetColumn="Current2YearBenefitCR" />
+              <Mapping SourceColumn="Current3YearBenefitRG" DataSetColumn="Current3YearBenefitRG" />
+              <Mapping SourceColumn="Current3YearBenefitCR" DataSetColumn="Current3YearBenefitCR" />
+              <Mapping SourceColumn="Current4YearBenefitRG" DataSetColumn="Current4YearBenefitRG" />
+              <Mapping SourceColumn="Current4YearBenefitCR" DataSetColumn="Current4YearBenefitCR" />
+              <Mapping SourceColumn="TotalBenefitRG" DataSetColumn="TotalBenefitRG" />
+              <Mapping SourceColumn="TotalBenefitCR" DataSetColumn="TotalBenefitCR" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_BenefitVsSpend_ROITableTableAdapter" GeneratorDataComponentClassName="spReport_BenefitVsSpend_ROITableTableAdapter" Name="spReport_BenefitVsSpend_ROITable" UserDataComponentName="spReport_BenefitVsSpend_ROITableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_BenefitVsSpend_ROITable" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_BenefitVsSpend_ROITable</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@InitiativeStatus" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Benefit" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Impact" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Group" DataSetColumn="Group" />
+              <Mapping SourceColumn="Sponsor" DataSetColumn="Sponsor" />
+              <Mapping SourceColumn="PreCurrentYearSpend" DataSetColumn="PreCurrentYearSpend" />
+              <Mapping SourceColumn="PreCurrentYearBenefitRG" DataSetColumn="PreCurrentYearBenefitRG" />
+              <Mapping SourceColumn="PreCurrentYearBenefitCR" DataSetColumn="PreCurrentYearBenefitCR" />
+              <Mapping SourceColumn="PreCurrentYearBenefitIntang" DataSetColumn="PreCurrentYearBenefitIntang" />
+              <Mapping SourceColumn="CurrentYearSpend" DataSetColumn="CurrentYearSpend" />
+              <Mapping SourceColumn="CurrentYearBenefitRG" DataSetColumn="CurrentYearBenefitRG" />
+              <Mapping SourceColumn="CurrentYearBenefitCR" DataSetColumn="CurrentYearBenefitCR" />
+              <Mapping SourceColumn="CurrentYearBenefitIntang" DataSetColumn="CurrentYearBenefitIntang" />
+              <Mapping SourceColumn="Current1YearSpend" DataSetColumn="Current1YearSpend" />
+              <Mapping SourceColumn="Current1YearBenefitRG" DataSetColumn="Current1YearBenefitRG" />
+              <Mapping SourceColumn="Current1YearBenefitCR" DataSetColumn="Current1YearBenefitCR" />
+              <Mapping SourceColumn="Current1YearBenefitIntang" DataSetColumn="Current1YearBenefitIntang" />
+              <Mapping SourceColumn="Current2YearSpend" DataSetColumn="Current2YearSpend" />
+              <Mapping SourceColumn="Current2YearBenefitRG" DataSetColumn="Current2YearBenefitRG" />
+              <Mapping SourceColumn="Current2YearBenefitCR" DataSetColumn="Current2YearBenefitCR" />
+              <Mapping SourceColumn="Current2YearBenefitIntang" DataSetColumn="Current2YearBenefitIntang" />
+              <Mapping SourceColumn="Current3YearSpend" DataSetColumn="Current3YearSpend" />
+              <Mapping SourceColumn="Current3YearBenefitRG" DataSetColumn="Current3YearBenefitRG" />
+              <Mapping SourceColumn="Current3YearBenefitCR" DataSetColumn="Current3YearBenefitCR" />
+              <Mapping SourceColumn="Current3YearBenefitIntang" DataSetColumn="Current3YearBenefitIntang" />
+              <Mapping SourceColumn="Current4YearSpend" DataSetColumn="Current4YearSpend" />
+              <Mapping SourceColumn="Current4YearBenefitRG" DataSetColumn="Current4YearBenefitRG" />
+              <Mapping SourceColumn="Current4YearBenefitCR" DataSetColumn="Current4YearBenefitCR" />
+              <Mapping SourceColumn="Current4YearBenefitIntang" DataSetColumn="Current4YearBenefitIntang" />
+              <Mapping SourceColumn="TotalSpend" DataSetColumn="TotalSpend" />
+              <Mapping SourceColumn="TotalBenefitRG" DataSetColumn="TotalBenefitRG" />
+              <Mapping SourceColumn="TotalBenefitCR" DataSetColumn="TotalBenefitCR" />
+              <Mapping SourceColumn="TotalBenefitIntang" DataSetColumn="TotalBenefitIntang" />
+              <Mapping SourceColumn="ROI" DataSetColumn="ROI" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_ProviderViewTableAdapter" GeneratorDataComponentClassName="spReport_ProviderViewTableAdapter" Name="spReport_ProviderView" UserDataComponentName="spReport_ProviderViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_ProviderView" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_ProviderView</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@SpendCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@FinancialCategory" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@InitiativeStatus" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Provider" DataSetColumn="Provider" />
+              <Mapping SourceColumn="Level10Name" DataSetColumn="Level10Name" />
+              <Mapping SourceColumn="Level10Code" DataSetColumn="Level10Code" />
+              <Mapping SourceColumn="SumPreCurrent" DataSetColumn="SumPreCurrent" />
+              <Mapping SourceColumn="SumCurrent" DataSetColumn="SumCurrent" />
+              <Mapping SourceColumn="SumCurrent1" DataSetColumn="SumCurrent1" />
+              <Mapping SourceColumn="SumCurrent2" DataSetColumn="SumCurrent2" />
+              <Mapping SourceColumn="SumCurrent3" DataSetColumn="SumCurrent3" />
+              <Mapping SourceColumn="SumCurrent4" DataSetColumn="SumCurrent4" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+              <Mapping SourceColumn="ProviderColour" DataSetColumn="ProviderColour" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_BenefitVsSpend_InitiativeDetailsTableAdapter" GeneratorDataComponentClassName="spReport_BenefitVsSpend_InitiativeDetailsTableAdapter" Name="spReport_BenefitVsSpend_InitiativeDetails" UserDataComponentName="spReport_BenefitVsSpend_InitiativeDetailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_BenefitVsSpend_InitiativeDetails" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_BenefitVsSpend_InitiativeDetails</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@InitiativeID" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="InitiativeID" DataSetColumn="InitiativeID" />
+              <Mapping SourceColumn="ImpactCategory" DataSetColumn="ImpactCategory" />
+              <Mapping SourceColumn="IGIdentifier" DataSetColumn="IGIdentifier" />
+              <Mapping SourceColumn="InitiativeName" DataSetColumn="InitiativeName" />
+              <Mapping SourceColumn="TotalBenefit" DataSetColumn="TotalBenefit" />
+              <Mapping SourceColumn="TotalSpend" DataSetColumn="TotalSpend" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReport_BenefitVsSpend_ROIBubbleTableAdapter" GeneratorDataComponentClassName="spReport_BenefitVsSpend_ROIBubbleTableAdapter" Name="spReport_BenefitVsSpend_ROIBubble" UserDataComponentName="spReport_BenefitVsSpend_ROIBubbleTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Reports_ConnectionString (Web.config)" DbObjectName="PMOToolkit_GlobalIG_ProjecPortfolioLive_UAT.dbo.spReport_BenefitVsSpend_ROIBubble" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
+                    <CommandText>dbo.spReport_BenefitVsSpend_ROIBubble</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@YearOfApproval" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IGApprovalCommittee" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@InitiativeStatus" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Benefit" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Impact" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                      <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CurrentYear" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
+                      </Parameter>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="InitiativeID" DataSetColumn="InitiativeID" />
+              <Mapping SourceColumn="ImpactCategoryID" DataSetColumn="ImpactCategoryID" />
+              <Mapping SourceColumn="ImpactCategory" DataSetColumn="ImpactCategory" />
+              <Mapping SourceColumn="IGIdentifier" DataSetColumn="IGIdentifier" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="TotalBenefit" DataSetColumn="TotalBenefit" />
+              <Mapping SourceColumn="TotalSpend" DataSetColumn="TotalSpend" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Reports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="Reports" msprop:Generator_DataSetName="Reports">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vwReportBenefits" msprop:Generator_UserTableName="vwReportBenefits" msprop:Generator_RowDeletedName="vwReportBenefitsRowDeleted" msprop:Generator_RowChangedName="vwReportBenefitsRowChanged" msprop:Generator_RowClassName="vwReportBenefitsRow" msprop:Generator_RowChangingName="vwReportBenefitsRowChanging" msprop:Generator_RowEvArgName="vwReportBenefitsRowChangeEvent" msprop:Generator_RowEvHandlerName="vwReportBenefitsRowChangeEventHandler" msprop:Generator_TableClassName="vwReportBenefitsDataTable" msprop:Generator_TableVarName="tablevwReportBenefits" msprop:Generator_RowDeletingName="vwReportBenefitsRowDeleting" msprop:Generator_TablePropName="vwReportBenefits">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Level7Name" msprop:Generator_UserColumnName="Level7Name" msprop:Generator_ColumnPropNameInRow="Level7Name" msprop:Generator_ColumnVarNameInTable="columnLevel7Name" msprop:Generator_ColumnPropNameInTable="Level7NameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Level10Code" msprop:Generator_UserColumnName="Level10Code" msprop:Generator_ColumnPropNameInRow="Level10Code" msprop:Generator_ColumnVarNameInTable="columnLevel10Code" msprop:Generator_ColumnPropNameInTable="Level10CodeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Level10Name" msprop:Generator_UserColumnName="Level10Name" msprop:Generator_ColumnPropNameInRow="Level10Name" msprop:Generator_ColumnVarNameInTable="columnLevel10Name" msprop:Generator_ColumnPropNameInTable="Level10NameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CRTotal2006" msprop:Generator_UserColumnName="CRTotal2006" msprop:Generator_ColumnPropNameInRow="CRTotal2006" msprop:Generator_ColumnVarNameInTable="columnCRTotal2006" msprop:Generator_ColumnPropNameInTable="CRTotal2006Column" type="xs:decimal" />
+              <xs:element name="CRTotal2007" msprop:Generator_UserColumnName="CRTotal2007" msprop:Generator_ColumnPropNameInRow="CRTotal2007" msprop:Generator_ColumnVarNameInTable="columnCRTotal2007" msprop:Generator_ColumnPropNameInTable="CRTotal2007Column" type="xs:decimal" />
+              <xs:element name="RGTotal2006" msprop:Generator_UserColumnName="RGTotal2006" msprop:Generator_ColumnPropNameInRow="RGTotal2006" msprop:Generator_ColumnVarNameInTable="columnRGTotal2006" msprop:Generator_ColumnPropNameInTable="RGTotal2006Column" type="xs:decimal" />
+              <xs:element name="RGTotal2007" msprop:Generator_UserColumnName="RGTotal2007" msprop:Generator_ColumnPropNameInRow="RGTotal2007" msprop:Generator_ColumnVarNameInTable="columnRGTotal2007" msprop:Generator_ColumnPropNameInTable="RGTotal2007Column" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vwReportBubbleChart" msprop:Generator_UserTableName="vwReportBubbleChart" msprop:Generator_RowDeletedName="vwReportBubbleChartRowDeleted" msprop:Generator_RowChangedName="vwReportBubbleChartRowChanged" msprop:Generator_RowClassName="vwReportBubbleChartRow" msprop:Generator_RowChangingName="vwReportBubbleChartRowChanging" msprop:Generator_RowEvArgName="vwReportBubbleChartRowChangeEvent" msprop:Generator_RowEvHandlerName="vwReportBubbleChartRowChangeEventHandler" msprop:Generator_TableClassName="vwReportBubbleChartDataTable" msprop:Generator_TableVarName="tablevwReportBubbleChart" msprop:Generator_RowDeletingName="vwReportBubbleChartRowDeleting" msprop:Generator_TablePropName="vwReportBubbleChart">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InitiativeID" msprop:Generator_UserColumnName="InitiativeID" msprop:Generator_ColumnPropNameInRow="InitiativeID" msprop:Generator_ColumnVarNameInTable="columnInitiativeID" msprop:Generator_ColumnPropNameInTable="InitiativeIDColumn" type="xs:int" />
+              <xs:element name="Spend" msprop:Generator_UserColumnName="Spend" msprop:Generator_ColumnPropNameInRow="Spend" msprop:Generator_ColumnVarNameInTable="columnSpend" msprop:Generator_ColumnPropNameInTable="SpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Benefit" msprop:Generator_UserColumnName="Benefit" msprop:Generator_ColumnPropNameInRow="Benefit" msprop:Generator_ColumnVarNameInTable="columnBenefit" msprop:Generator_ColumnPropNameInTable="BenefitColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Year" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Year" msprop:Generator_ColumnPropNameInRow="Year" msprop:Generator_ColumnVarNameInTable="columnYear" msprop:Generator_ColumnPropNameInTable="YearColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="InitiativeImpactCategory" msprop:Generator_UserColumnName="InitiativeImpactCategory" msprop:Generator_ColumnPropNameInRow="InitiativeImpactCategory" msprop:Generator_ColumnVarNameInTable="columnInitiativeImpactCategory" msprop:Generator_ColumnPropNameInTable="InitiativeImpactCategoryColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalSpend" msprop:Generator_UserColumnName="TotalSpend" msprop:Generator_ColumnPropNameInRow="TotalSpend" msprop:Generator_ColumnVarNameInTable="columnTotalSpend" msprop:Generator_ColumnPropNameInTable="TotalSpendColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vwReportCommitteeView" msprop:Generator_UserTableName="vwReportCommitteeView" msprop:Generator_RowDeletedName="vwReportCommitteeViewRowDeleted" msprop:Generator_RowChangedName="vwReportCommitteeViewRowChanged" msprop:Generator_RowClassName="vwReportCommitteeViewRow" msprop:Generator_RowChangingName="vwReportCommitteeViewRowChanging" msprop:Generator_RowEvArgName="vwReportCommitteeViewRowChangeEvent" msprop:Generator_RowEvHandlerName="vwReportCommitteeViewRowChangeEventHandler" msprop:Generator_TableClassName="vwReportCommitteeViewDataTable" msprop:Generator_TableVarName="tablevwReportCommitteeView" msprop:Generator_RowDeletingName="vwReportCommitteeViewRowDeleting" msprop:Generator_TablePropName="vwReportCommitteeView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IGApprovalCommittee" msprop:Generator_UserColumnName="IGApprovalCommittee" msprop:Generator_ColumnPropNameInRow="IGApprovalCommittee" msprop:Generator_ColumnVarNameInTable="columnIGApprovalCommittee" msprop:Generator_ColumnPropNameInTable="IGApprovalCommitteeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalInitiatives" msprop:Generator_UserColumnName="TotalInitiatives" msprop:Generator_ColumnPropNameInRow="TotalInitiatives" msprop:Generator_ColumnVarNameInTable="columnTotalInitiatives" msprop:Generator_ColumnPropNameInTable="TotalInitiativesColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalApprovedInitiatives" msprop:Generator_UserColumnName="TotalApprovedInitiatives" msprop:Generator_ColumnPropNameInRow="TotalApprovedInitiatives" msprop:Generator_ColumnVarNameInTable="columnTotalApprovedInitiatives" msprop:Generator_ColumnPropNameInTable="TotalApprovedInitiativesColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalSpendApprovedForCurrentYear" msprop:Generator_UserColumnName="TotalSpendApprovedForCurrentYear" msprop:Generator_ColumnPropNameInRow="TotalSpendApprovedForCurrentYear" msprop:Generator_ColumnVarNameInTable="columnTotalSpendApprovedForCurrentYear" msprop:Generator_ColumnPropNameInTable="TotalSpendApprovedForCurrentYearColumn" type="xs:decimal" />
+              <xs:element name="TotalSpendForCurrentYear" msprop:Generator_UserColumnName="TotalSpendForCurrentYear" msprop:Generator_ColumnPropNameInRow="TotalSpendForCurrentYear" msprop:Generator_ColumnVarNameInTable="columnTotalSpendForCurrentYear" msprop:Generator_ColumnPropNameInTable="TotalSpendForCurrentYearColumn" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vwReportClientView" msprop:Generator_UserTableName="vwReportClientView" msprop:Generator_RowDeletedName="vwReportClientViewRowDeleted" msprop:Generator_RowChangedName="vwReportClientViewRowChanged" msprop:Generator_RowClassName="vwReportClientViewRow" msprop:Generator_RowChangingName="vwReportClientViewRowChanging" msprop:Generator_RowEvArgName="vwReportClientViewRowChangeEvent" msprop:Generator_RowEvHandlerName="vwReportClientViewRowChangeEventHandler" msprop:Generator_TableClassName="vwReportClientViewDataTable" msprop:Generator_TableVarName="tablevwReportClientView" msprop:Generator_RowDeletingName="vwReportClientViewRowDeleting" msprop:Generator_TablePropName="vwReportClientView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BusinessArea" msprop:Generator_UserColumnName="BusinessArea" msprop:Generator_ColumnVarNameInTable="columnBusinessArea" msprop:Generator_ColumnPropNameInRow="BusinessArea" msprop:Generator_ColumnPropNameInTable="BusinessAreaColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Business" msprop:Generator_UserColumnName="Business" msprop:Generator_ColumnVarNameInTable="columnBusiness" msprop:Generator_ColumnPropNameInRow="Business" msprop:Generator_ColumnPropNameInTable="BusinessColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Period" msprop:Generator_UserColumnName="Period" msprop:Generator_ColumnVarNameInTable="columnPeriod" msprop:Generator_ColumnPropNameInRow="Period" msprop:Generator_ColumnPropNameInTable="PeriodColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SpendType" msprop:Generator_UserColumnName="SpendType" msprop:Generator_ColumnVarNameInTable="columnSpendType" msprop:Generator_ColumnPropNameInRow="SpendType" msprop:Generator_ColumnPropNameInTable="SpendTypeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ApprovalYear" msprop:Generator_UserColumnName="ApprovalYear" msprop:Generator_ColumnVarNameInTable="columnApprovalYear" msprop:Generator_ColumnPropNameInRow="ApprovalYear" msprop:Generator_ColumnPropNameInTable="ApprovalYearColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalSponsorAmount" msprop:Generator_UserColumnName="TotalSponsorAmount" msprop:Generator_ColumnVarNameInTable="columnTotalSponsorAmount" msprop:Generator_ColumnPropNameInRow="TotalSponsorAmount" msprop:Generator_ColumnPropNameInTable="TotalSponsorAmountColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_CommitteeView" msprop:Generator_UserTableName="spReport_CommitteeView" msprop:Generator_RowDeletedName="spReport_CommitteeViewRowDeleted" msprop:Generator_RowChangedName="spReport_CommitteeViewRowChanged" msprop:Generator_RowClassName="spReport_CommitteeViewRow" msprop:Generator_RowChangingName="spReport_CommitteeViewRowChanging" msprop:Generator_RowEvArgName="spReport_CommitteeViewRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_CommitteeViewRowChangeEventHandler" msprop:Generator_TableClassName="spReport_CommitteeViewDataTable" msprop:Generator_TableVarName="tablespReport_CommitteeView" msprop:Generator_RowDeletingName="spReport_CommitteeViewRowDeleting" msprop:Generator_TablePropName="spReport_CommitteeView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IGApprovalCommittee" msprop:Generator_UserColumnName="IGApprovalCommittee" msprop:Generator_ColumnPropNameInRow="IGApprovalCommittee" msprop:Generator_ColumnVarNameInTable="columnIGApprovalCommittee" msprop:Generator_ColumnPropNameInTable="IGApprovalCommitteeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalApprovedInitiatives" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalApprovedInitiatives" msprop:Generator_ColumnPropNameInRow="TotalApprovedInitiatives" msprop:Generator_ColumnVarNameInTable="columnTotalApprovedInitiatives" msprop:Generator_ColumnPropNameInTable="TotalApprovedInitiativesColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalInitiatives" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalInitiatives" msprop:Generator_ColumnPropNameInRow="TotalInitiatives" msprop:Generator_ColumnVarNameInTable="columnTotalInitiatives" msprop:Generator_ColumnPropNameInTable="TotalInitiativesColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalSpendApprovedForCurrentYear" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpendApprovedForCurrentYear" msprop:Generator_ColumnPropNameInRow="TotalSpendApprovedForCurrentYear" msprop:Generator_ColumnVarNameInTable="columnTotalSpendApprovedForCurrentYear" msprop:Generator_ColumnPropNameInTable="TotalSpendApprovedForCurrentYearColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpendForCurrentYear" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpendForCurrentYear" msprop:Generator_ColumnPropNameInRow="TotalSpendForCurrentYear" msprop:Generator_ColumnVarNameInTable="columnTotalSpendForCurrentYear" msprop:Generator_ColumnPropNameInTable="TotalSpendForCurrentYearColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_BenefitvsSpend_Lines" msprop:Generator_UserTableName="spReport_BenefitvsSpend_Lines" msprop:Generator_RowDeletedName="spReport_BenefitvsSpend_LinesRowDeleted" msprop:Generator_RowChangedName="spReport_BenefitvsSpend_LinesRowChanged" msprop:Generator_RowClassName="spReport_BenefitvsSpend_LinesRow" msprop:Generator_RowChangingName="spReport_BenefitvsSpend_LinesRowChanging" msprop:Generator_RowEvArgName="spReport_BenefitvsSpend_LinesRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_BenefitvsSpend_LinesRowChangeEventHandler" msprop:Generator_TableClassName="spReport_BenefitvsSpend_LinesDataTable" msprop:Generator_TableVarName="tablespReport_BenefitvsSpend_Lines" msprop:Generator_RowDeletingName="spReport_BenefitvsSpend_LinesRowDeleting" msprop:Generator_TablePropName="spReport_BenefitvsSpend_Lines">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Interval" msprop:Generator_UserColumnName="Interval" msprop:Generator_ColumnVarNameInTable="columnInterval" msprop:Generator_ColumnPropNameInRow="Interval" msprop:Generator_ColumnPropNameInTable="IntervalColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PeriodID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_UserColumnName="PeriodID" msprop:Generator_ColumnVarNameInTable="columnPeriodID" msprop:Generator_ColumnPropNameInRow="PeriodID" msprop:Generator_ColumnPropNameInTable="PeriodIDColumn" type="xs:int" />
+              <xs:element name="TotalBenefit" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefit" msprop:Generator_ColumnVarNameInTable="columnTotalBenefit" msprop:Generator_ColumnPropNameInRow="TotalBenefit" msprop:Generator_ColumnPropNameInTable="TotalBenefitColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpend" msprop:Generator_ColumnVarNameInTable="columnTotalSpend" msprop:Generator_ColumnPropNameInRow="TotalSpend" msprop:Generator_ColumnPropNameInTable="TotalSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BenefitCost" msdata:ReadOnly="true" msprop:Generator_UserColumnName="BenefitCost" msprop:Generator_ColumnVarNameInTable="columnBenefitCost" msprop:Generator_ColumnPropNameInRow="BenefitCost" msprop:Generator_ColumnPropNameInTable="BenefitCostColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_ProfitLossTable" msprop:Generator_UserTableName="spReport_ProfitLossTable" msprop:Generator_RowDeletedName="spReport_ProfitLossTableRowDeleted" msprop:Generator_RowChangedName="spReport_ProfitLossTableRowChanged" msprop:Generator_RowClassName="spReport_ProfitLossTableRow" msprop:Generator_RowChangingName="spReport_ProfitLossTableRowChanging" msprop:Generator_RowEvArgName="spReport_ProfitLossTableRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_ProfitLossTableRowChangeEventHandler" msprop:Generator_TableClassName="spReport_ProfitLossTableDataTable" msprop:Generator_TableVarName="tablespReport_ProfitLossTable" msprop:Generator_RowDeletingName="spReport_ProfitLossTableRowDeleting" msprop:Generator_TablePropName="spReport_ProfitLossTable">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RevenueGeneration" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RevenueGeneration" msprop:Generator_ColumnVarNameInTable="columnRevenueGeneration" msprop:Generator_ColumnPropNameInRow="RevenueGeneration" msprop:Generator_ColumnPropNameInTable="RevenueGenerationColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostReduction" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CostReduction" msprop:Generator_ColumnVarNameInTable="columnCostReduction" msprop:Generator_ColumnPropNameInRow="CostReduction" msprop:Generator_ColumnPropNameInTable="CostReductionColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RiskReduction" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RiskReduction" msprop:Generator_ColumnVarNameInTable="columnRiskReduction" msprop:Generator_ColumnPropNameInRow="RiskReduction" msprop:Generator_ColumnPropNameInTable="RiskReductionColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostAvoidance" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CostAvoidance" msprop:Generator_ColumnVarNameInTable="columnCostAvoidance" msprop:Generator_ColumnPropNameInRow="CostAvoidance" msprop:Generator_ColumnPropNameInTable="CostAvoidanceColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueLossAvoidance" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RevenueLossAvoidance" msprop:Generator_ColumnVarNameInTable="columnRevenueLossAvoidance" msprop:Generator_ColumnPropNameInRow="RevenueLossAvoidance" msprop:Generator_ColumnPropNameInTable="RevenueLossAvoidanceColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefit" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefit" msprop:Generator_ColumnVarNameInTable="columnTotalBenefit" msprop:Generator_ColumnPropNameInRow="TotalBenefit" msprop:Generator_ColumnPropNameInTable="TotalBenefitColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CTBSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CTBSpend" msprop:Generator_ColumnVarNameInTable="columnCTBSpend" msprop:Generator_ColumnPropNameInRow="CTBSpend" msprop:Generator_ColumnPropNameInTable="CTBSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MANSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="MANSpend" msprop:Generator_ColumnVarNameInTable="columnMANSpend" msprop:Generator_ColumnPropNameInRow="MANSpend" msprop:Generator_ColumnPropNameInTable="MANSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RTBSpend" msprop:Generator_ColumnVarNameInTable="columnRTBSpend" msprop:Generator_ColumnPropNameInRow="RTBSpend" msprop:Generator_ColumnPropNameInTable="RTBSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpend" msprop:Generator_ColumnVarNameInTable="columnTotalSpend" msprop:Generator_ColumnPropNameInRow="TotalSpend" msprop:Generator_ColumnPropNameInTable="TotalSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBExisting" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RTBExisting" msprop:Generator_ColumnVarNameInTable="columnRTBExisting" msprop:Generator_ColumnPropNameInRow="RTBExisting" msprop:Generator_ColumnPropNameInTable="RTBExistingColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueGenerationQ1" msprop:Generator_UserColumnName="RevenueGenerationQ1" msprop:Generator_ColumnVarNameInTable="columnRevenueGenerationQ1" msprop:Generator_ColumnPropNameInRow="RevenueGenerationQ1" msprop:Generator_ColumnPropNameInTable="RevenueGenerationQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueGenerationQ2" msprop:Generator_UserColumnName="RevenueGenerationQ2" msprop:Generator_ColumnVarNameInTable="columnRevenueGenerationQ2" msprop:Generator_ColumnPropNameInRow="RevenueGenerationQ2" msprop:Generator_ColumnPropNameInTable="RevenueGenerationQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueGenerationQ3" msprop:Generator_UserColumnName="RevenueGenerationQ3" msprop:Generator_ColumnVarNameInTable="columnRevenueGenerationQ3" msprop:Generator_ColumnPropNameInRow="RevenueGenerationQ3" msprop:Generator_ColumnPropNameInTable="RevenueGenerationQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueGenerationQ4" msprop:Generator_UserColumnName="RevenueGenerationQ4" msprop:Generator_ColumnVarNameInTable="columnRevenueGenerationQ4" msprop:Generator_ColumnPropNameInRow="RevenueGenerationQ4" msprop:Generator_ColumnPropNameInTable="RevenueGenerationQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostReductionQ1" msprop:Generator_UserColumnName="CostReductionQ1" msprop:Generator_ColumnVarNameInTable="columnCostReductionQ1" msprop:Generator_ColumnPropNameInRow="CostReductionQ1" msprop:Generator_ColumnPropNameInTable="CostReductionQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostReductionQ2" msprop:Generator_UserColumnName="CostReductionQ2" msprop:Generator_ColumnVarNameInTable="columnCostReductionQ2" msprop:Generator_ColumnPropNameInRow="CostReductionQ2" msprop:Generator_ColumnPropNameInTable="CostReductionQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostReductionQ3" msprop:Generator_UserColumnName="CostReductionQ3" msprop:Generator_ColumnVarNameInTable="columnCostReductionQ3" msprop:Generator_ColumnPropNameInRow="CostReductionQ3" msprop:Generator_ColumnPropNameInTable="CostReductionQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostReductionQ4" msprop:Generator_UserColumnName="CostReductionQ4" msprop:Generator_ColumnVarNameInTable="columnCostReductionQ4" msprop:Generator_ColumnPropNameInRow="CostReductionQ4" msprop:Generator_ColumnPropNameInTable="CostReductionQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RiskReductionQ1" msprop:Generator_UserColumnName="RiskReductionQ1" msprop:Generator_ColumnVarNameInTable="columnRiskReductionQ1" msprop:Generator_ColumnPropNameInRow="RiskReductionQ1" msprop:Generator_ColumnPropNameInTable="RiskReductionQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RiskReductionQ2" msprop:Generator_UserColumnName="RiskReductionQ2" msprop:Generator_ColumnVarNameInTable="columnRiskReductionQ2" msprop:Generator_ColumnPropNameInRow="RiskReductionQ2" msprop:Generator_ColumnPropNameInTable="RiskReductionQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RiskReductionQ3" msprop:Generator_UserColumnName="RiskReductionQ3" msprop:Generator_ColumnVarNameInTable="columnRiskReductionQ3" msprop:Generator_ColumnPropNameInRow="RiskReductionQ3" msprop:Generator_ColumnPropNameInTable="RiskReductionQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RiskReductionQ4" msprop:Generator_UserColumnName="RiskReductionQ4" msprop:Generator_ColumnVarNameInTable="columnRiskReductionQ4" msprop:Generator_ColumnPropNameInRow="RiskReductionQ4" msprop:Generator_ColumnPropNameInTable="RiskReductionQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostAvoidanceQ1" msprop:Generator_UserColumnName="CostAvoidanceQ1" msprop:Generator_ColumnVarNameInTable="columnCostAvoidanceQ1" msprop:Generator_ColumnPropNameInRow="CostAvoidanceQ1" msprop:Generator_ColumnPropNameInTable="CostAvoidanceQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostAvoidanceQ2" msprop:Generator_UserColumnName="CostAvoidanceQ2" msprop:Generator_ColumnVarNameInTable="columnCostAvoidanceQ2" msprop:Generator_ColumnPropNameInRow="CostAvoidanceQ2" msprop:Generator_ColumnPropNameInTable="CostAvoidanceQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostAvoidanceQ3" msprop:Generator_UserColumnName="CostAvoidanceQ3" msprop:Generator_ColumnVarNameInTable="columnCostAvoidanceQ3" msprop:Generator_ColumnPropNameInRow="CostAvoidanceQ3" msprop:Generator_ColumnPropNameInTable="CostAvoidanceQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CostAvoidanceQ4" msprop:Generator_UserColumnName="CostAvoidanceQ4" msprop:Generator_ColumnVarNameInTable="columnCostAvoidanceQ4" msprop:Generator_ColumnPropNameInRow="CostAvoidanceQ4" msprop:Generator_ColumnPropNameInTable="CostAvoidanceQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueLossAvoidanceQ1" msprop:Generator_UserColumnName="RevenueLossAvoidanceQ1" msprop:Generator_ColumnVarNameInTable="columnRevenueLossAvoidanceQ1" msprop:Generator_ColumnPropNameInRow="RevenueLossAvoidanceQ1" msprop:Generator_ColumnPropNameInTable="RevenueLossAvoidanceQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueLossAvoidanceQ2" msprop:Generator_UserColumnName="RevenueLossAvoidanceQ2" msprop:Generator_ColumnVarNameInTable="columnRevenueLossAvoidanceQ2" msprop:Generator_ColumnPropNameInRow="RevenueLossAvoidanceQ2" msprop:Generator_ColumnPropNameInTable="RevenueLossAvoidanceQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueLossAvoidanceQ3" msprop:Generator_UserColumnName="RevenueLossAvoidanceQ3" msprop:Generator_ColumnVarNameInTable="columnRevenueLossAvoidanceQ3" msprop:Generator_ColumnPropNameInRow="RevenueLossAvoidanceQ3" msprop:Generator_ColumnPropNameInTable="RevenueLossAvoidanceQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RevenueLossAvoidanceQ4" msprop:Generator_UserColumnName="RevenueLossAvoidanceQ4" msprop:Generator_ColumnVarNameInTable="columnRevenueLossAvoidanceQ4" msprop:Generator_ColumnPropNameInRow="RevenueLossAvoidanceQ4" msprop:Generator_ColumnPropNameInTable="RevenueLossAvoidanceQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitQ1" msprop:Generator_UserColumnName="TotalBenefitQ1" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitQ1" msprop:Generator_ColumnPropNameInRow="TotalBenefitQ1" msprop:Generator_ColumnPropNameInTable="TotalBenefitQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitQ2" msprop:Generator_UserColumnName="TotalBenefitQ2" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitQ2" msprop:Generator_ColumnPropNameInRow="TotalBenefitQ2" msprop:Generator_ColumnPropNameInTable="TotalBenefitQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitQ3" msprop:Generator_UserColumnName="TotalBenefitQ3" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitQ3" msprop:Generator_ColumnPropNameInRow="TotalBenefitQ3" msprop:Generator_ColumnPropNameInTable="TotalBenefitQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitQ4" msprop:Generator_UserColumnName="TotalBenefitQ4" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitQ4" msprop:Generator_ColumnPropNameInRow="TotalBenefitQ4" msprop:Generator_ColumnPropNameInTable="TotalBenefitQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CTBSpendQ1" msprop:Generator_UserColumnName="CTBSpendQ1" msprop:Generator_ColumnVarNameInTable="columnCTBSpendQ1" msprop:Generator_ColumnPropNameInRow="CTBSpendQ1" msprop:Generator_ColumnPropNameInTable="CTBSpendQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CTBSpendQ2" msprop:Generator_UserColumnName="CTBSpendQ2" msprop:Generator_ColumnVarNameInTable="columnCTBSpendQ2" msprop:Generator_ColumnPropNameInRow="CTBSpendQ2" msprop:Generator_ColumnPropNameInTable="CTBSpendQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CTBSpendQ3" msprop:Generator_UserColumnName="CTBSpendQ3" msprop:Generator_ColumnVarNameInTable="columnCTBSpendQ3" msprop:Generator_ColumnPropNameInRow="CTBSpendQ3" msprop:Generator_ColumnPropNameInTable="CTBSpendQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CTBSpendQ4" msprop:Generator_UserColumnName="CTBSpendQ4" msprop:Generator_ColumnVarNameInTable="columnCTBSpendQ4" msprop:Generator_ColumnPropNameInRow="CTBSpendQ4" msprop:Generator_ColumnPropNameInTable="CTBSpendQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MANSpendQ1" msprop:Generator_UserColumnName="MANSpendQ1" msprop:Generator_ColumnVarNameInTable="columnMANSpendQ1" msprop:Generator_ColumnPropNameInRow="MANSpendQ1" msprop:Generator_ColumnPropNameInTable="MANSpendQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MANSpendQ2" msprop:Generator_UserColumnName="MANSpendQ2" msprop:Generator_ColumnVarNameInTable="columnMANSpendQ2" msprop:Generator_ColumnPropNameInRow="MANSpendQ2" msprop:Generator_ColumnPropNameInTable="MANSpendQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MANSpendQ3" msprop:Generator_UserColumnName="MANSpendQ3" msprop:Generator_ColumnVarNameInTable="columnMANSpendQ3" msprop:Generator_ColumnPropNameInRow="MANSpendQ3" msprop:Generator_ColumnPropNameInTable="MANSpendQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MANSpendQ4" msprop:Generator_UserColumnName="MANSpendQ4" msprop:Generator_ColumnVarNameInTable="columnMANSpendQ4" msprop:Generator_ColumnPropNameInRow="MANSpendQ4" msprop:Generator_ColumnPropNameInTable="MANSpendQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBSpendQ1" msprop:Generator_UserColumnName="RTBSpendQ1" msprop:Generator_ColumnVarNameInTable="columnRTBSpendQ1" msprop:Generator_ColumnPropNameInRow="RTBSpendQ1" msprop:Generator_ColumnPropNameInTable="RTBSpendQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBSpendQ2" msprop:Generator_UserColumnName="RTBSpendQ2" msprop:Generator_ColumnVarNameInTable="columnRTBSpendQ2" msprop:Generator_ColumnPropNameInRow="RTBSpendQ2" msprop:Generator_ColumnPropNameInTable="RTBSpendQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBSpendQ3" msprop:Generator_UserColumnName="RTBSpendQ3" msprop:Generator_ColumnVarNameInTable="columnRTBSpendQ3" msprop:Generator_ColumnPropNameInRow="RTBSpendQ3" msprop:Generator_ColumnPropNameInTable="RTBSpendQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBSpendQ4" msprop:Generator_UserColumnName="RTBSpendQ4" msprop:Generator_ColumnVarNameInTable="columnRTBSpendQ4" msprop:Generator_ColumnPropNameInRow="RTBSpendQ4" msprop:Generator_ColumnPropNameInTable="RTBSpendQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpendQ1" msprop:Generator_UserColumnName="TotalSpendQ1" msprop:Generator_ColumnVarNameInTable="columnTotalSpendQ1" msprop:Generator_ColumnPropNameInRow="TotalSpendQ1" msprop:Generator_ColumnPropNameInTable="TotalSpendQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpendQ2" msprop:Generator_UserColumnName="TotalSpendQ2" msprop:Generator_ColumnVarNameInTable="columnTotalSpendQ2" msprop:Generator_ColumnPropNameInRow="TotalSpendQ2" msprop:Generator_ColumnPropNameInTable="TotalSpendQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpendQ3" msprop:Generator_UserColumnName="TotalSpendQ3" msprop:Generator_ColumnVarNameInTable="columnTotalSpendQ3" msprop:Generator_ColumnPropNameInRow="TotalSpendQ3" msprop:Generator_ColumnPropNameInTable="TotalSpendQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpendQ4" msprop:Generator_UserColumnName="TotalSpendQ4" msprop:Generator_ColumnVarNameInTable="columnTotalSpendQ4" msprop:Generator_ColumnPropNameInRow="TotalSpendQ4" msprop:Generator_ColumnPropNameInTable="TotalSpendQ4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBExistingQ1" msprop:Generator_UserColumnName="RTBExistingQ1" msprop:Generator_ColumnVarNameInTable="columnRTBExistingQ1" msprop:Generator_ColumnPropNameInRow="RTBExistingQ1" msprop:Generator_ColumnPropNameInTable="RTBExistingQ1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBExistingQ2" msprop:Generator_UserColumnName="RTBExistingQ2" msprop:Generator_ColumnVarNameInTable="columnRTBExistingQ2" msprop:Generator_ColumnPropNameInRow="RTBExistingQ2" msprop:Generator_ColumnPropNameInTable="RTBExistingQ2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBExistingQ3" msprop:Generator_UserColumnName="RTBExistingQ3" msprop:Generator_ColumnVarNameInTable="columnRTBExistingQ3" msprop:Generator_ColumnPropNameInRow="RTBExistingQ3" msprop:Generator_ColumnPropNameInTable="RTBExistingQ3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RTBExistingQ4" msprop:Generator_UserColumnName="RTBExistingQ4" msprop:Generator_ColumnVarNameInTable="columnRTBExistingQ4" msprop:Generator_ColumnPropNameInRow="RTBExistingQ4" msprop:Generator_ColumnPropNameInTable="RTBExistingQ4Column" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_ClientView" msprop:Generator_UserTableName="spReport_ClientView" msprop:Generator_RowDeletedName="spReport_ClientViewRowDeleted" msprop:Generator_RowChangedName="spReport_ClientViewRowChanged" msprop:Generator_RowClassName="spReport_ClientViewRow" msprop:Generator_RowChangingName="spReport_ClientViewRowChanging" msprop:Generator_RowEvArgName="spReport_ClientViewRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_ClientViewRowChangeEventHandler" msprop:Generator_TableClassName="spReport_ClientViewDataTable" msprop:Generator_TableVarName="tablespReport_ClientView" msprop:Generator_RowDeletingName="spReport_ClientViewRowDeleting" msprop:Generator_TablePropName="spReport_ClientView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BusinessArea" msprop:Generator_UserColumnName="BusinessArea" msprop:Generator_ColumnPropNameInRow="BusinessArea" msprop:Generator_ColumnVarNameInTable="columnBusinessArea" msprop:Generator_ColumnPropNameInTable="BusinessAreaColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Business" msprop:Generator_UserColumnName="Business" msprop:Generator_ColumnPropNameInRow="Business" msprop:Generator_ColumnVarNameInTable="columnBusiness" msprop:Generator_ColumnPropNameInTable="BusinessColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SumPreCurrent" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumPreCurrent" msprop:Generator_ColumnPropNameInRow="SumPreCurrent" msprop:Generator_ColumnVarNameInTable="columnSumPreCurrent" msprop:Generator_ColumnPropNameInTable="SumPreCurrentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent" msprop:Generator_ColumnPropNameInRow="SumCurrent" msprop:Generator_ColumnVarNameInTable="columnSumCurrent" msprop:Generator_ColumnPropNameInTable="SumCurrentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent1" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent1" msprop:Generator_ColumnPropNameInRow="SumCurrent1" msprop:Generator_ColumnVarNameInTable="columnSumCurrent1" msprop:Generator_ColumnPropNameInTable="SumCurrent1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent2" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent2" msprop:Generator_ColumnPropNameInRow="SumCurrent2" msprop:Generator_ColumnVarNameInTable="columnSumCurrent2" msprop:Generator_ColumnPropNameInTable="SumCurrent2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent3" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent3" msprop:Generator_ColumnPropNameInRow="SumCurrent3" msprop:Generator_ColumnVarNameInTable="columnSumCurrent3" msprop:Generator_ColumnPropNameInTable="SumCurrent3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent4" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent4" msprop:Generator_ColumnPropNameInRow="SumCurrent4" msprop:Generator_ColumnVarNameInTable="columnSumCurrent4" msprop:Generator_ColumnPropNameInTable="SumCurrent4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Total" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInTable="TotalColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Committees" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Committees" msprop:Generator_ColumnVarNameInTable="columnCommittees" msprop:Generator_ColumnPropNameInRow="Committees" msprop:Generator_ColumnPropNameInTable="CommitteesColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_BenefitVsSpend_BenefitsTable" msprop:Generator_UserTableName="spReport_BenefitVsSpend_BenefitsTable" msprop:Generator_RowDeletedName="spReport_BenefitVsSpend_BenefitsTableRowDeleted" msprop:Generator_RowChangedName="spReport_BenefitVsSpend_BenefitsTableRowChanged" msprop:Generator_RowClassName="spReport_BenefitVsSpend_BenefitsTableRow" msprop:Generator_RowChangingName="spReport_BenefitVsSpend_BenefitsTableRowChanging" msprop:Generator_RowEvArgName="spReport_BenefitVsSpend_BenefitsTableRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_BenefitVsSpend_BenefitsTableRowChangeEventHandler" msprop:Generator_TableClassName="spReport_BenefitVsSpend_BenefitsTableDataTable" msprop:Generator_TableVarName="tablespReport_BenefitVsSpend_BenefitsTable" msprop:Generator_RowDeletingName="spReport_BenefitVsSpend_BenefitsTableRowDeleting" msprop:Generator_TablePropName="spReport_BenefitVsSpend_BenefitsTable">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustomGrouping" msprop:Generator_UserColumnName="CustomGrouping" msprop:Generator_ColumnVarNameInTable="columnCustomGrouping" msprop:Generator_ColumnPropNameInRow="CustomGrouping" msprop:Generator_ColumnPropNameInTable="CustomGroupingColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Level10Name" msprop:Generator_UserColumnName="Level10Name" msprop:Generator_ColumnVarNameInTable="columnLevel10Name" msprop:Generator_ColumnPropNameInRow="Level10Name" msprop:Generator_ColumnPropNameInTable="Level10NameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PreCurrentYearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PreCurrentYearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnPreCurrentYearBenefitRG" msprop:Generator_ColumnPropNameInRow="PreCurrentYearBenefitRG" msprop:Generator_ColumnPropNameInTable="PreCurrentYearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PreCurrentYearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PreCurrentYearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnPreCurrentYearBenefitCR" msprop:Generator_ColumnPropNameInRow="PreCurrentYearBenefitCR" msprop:Generator_ColumnPropNameInTable="PreCurrentYearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentYearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CurrentYearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrentYearBenefitRG" msprop:Generator_ColumnPropNameInRow="CurrentYearBenefitRG" msprop:Generator_ColumnPropNameInTable="CurrentYearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentYearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CurrentYearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrentYearBenefitCR" msprop:Generator_ColumnPropNameInRow="CurrentYearBenefitCR" msprop:Generator_ColumnPropNameInTable="CurrentYearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current1YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current1YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent1YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current1YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current1YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current1YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current1YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent1YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current1YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current1YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current2YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current2YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent2YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current2YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current2YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current2YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current2YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent2YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current2YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current2YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current3YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current3YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent3YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current3YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current3YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current3YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current3YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent3YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current3YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current3YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current4YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current4YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent4YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current4YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current4YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current4YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current4YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent4YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current4YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current4YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefitRG" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitRG" msprop:Generator_ColumnPropNameInRow="TotalBenefitRG" msprop:Generator_ColumnPropNameInTable="TotalBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefitCR" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitCR" msprop:Generator_ColumnPropNameInRow="TotalBenefitCR" msprop:Generator_ColumnPropNameInTable="TotalBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_BenefitVsSpend_ROITable" msprop:Generator_UserTableName="spReport_BenefitVsSpend_ROITable" msprop:Generator_RowDeletedName="spReport_BenefitVsSpend_ROITableRowDeleted" msprop:Generator_RowChangedName="spReport_BenefitVsSpend_ROITableRowChanged" msprop:Generator_RowClassName="spReport_BenefitVsSpend_ROITableRow" msprop:Generator_RowChangingName="spReport_BenefitVsSpend_ROITableRowChanging" msprop:Generator_RowEvArgName="spReport_BenefitVsSpend_ROITableRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_BenefitVsSpend_ROITableRowChangeEventHandler" msprop:Generator_TableClassName="spReport_BenefitVsSpend_ROITableDataTable" msprop:Generator_TableVarName="tablespReport_BenefitVsSpend_ROITable" msprop:Generator_RowDeletingName="spReport_BenefitVsSpend_ROITableRowDeleting" msprop:Generator_TablePropName="spReport_BenefitVsSpend_ROITable">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Group" msprop:Generator_UserColumnName="Group" msprop:Generator_ColumnVarNameInTable="columnGroup" msprop:Generator_ColumnPropNameInRow="Group" msprop:Generator_ColumnPropNameInTable="GroupColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Sponsor" msprop:Generator_UserColumnName="Sponsor" msprop:Generator_ColumnVarNameInTable="columnSponsor" msprop:Generator_ColumnPropNameInRow="Sponsor" msprop:Generator_ColumnPropNameInTable="SponsorColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PreCurrentYearSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PreCurrentYearSpend" msprop:Generator_ColumnVarNameInTable="columnPreCurrentYearSpend" msprop:Generator_ColumnPropNameInRow="PreCurrentYearSpend" msprop:Generator_ColumnPropNameInTable="PreCurrentYearSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PreCurrentYearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PreCurrentYearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnPreCurrentYearBenefitRG" msprop:Generator_ColumnPropNameInRow="PreCurrentYearBenefitRG" msprop:Generator_ColumnPropNameInTable="PreCurrentYearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PreCurrentYearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PreCurrentYearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnPreCurrentYearBenefitCR" msprop:Generator_ColumnPropNameInRow="PreCurrentYearBenefitCR" msprop:Generator_ColumnPropNameInTable="PreCurrentYearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PreCurrentYearBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PreCurrentYearBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnPreCurrentYearBenefitIntang" msprop:Generator_ColumnPropNameInRow="PreCurrentYearBenefitIntang" msprop:Generator_ColumnPropNameInTable="PreCurrentYearBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentYearSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CurrentYearSpend" msprop:Generator_ColumnVarNameInTable="columnCurrentYearSpend" msprop:Generator_ColumnPropNameInRow="CurrentYearSpend" msprop:Generator_ColumnPropNameInTable="CurrentYearSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentYearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CurrentYearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrentYearBenefitRG" msprop:Generator_ColumnPropNameInRow="CurrentYearBenefitRG" msprop:Generator_ColumnPropNameInTable="CurrentYearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentYearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CurrentYearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrentYearBenefitCR" msprop:Generator_ColumnPropNameInRow="CurrentYearBenefitCR" msprop:Generator_ColumnPropNameInTable="CurrentYearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentYearBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CurrentYearBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnCurrentYearBenefitIntang" msprop:Generator_ColumnPropNameInRow="CurrentYearBenefitIntang" msprop:Generator_ColumnPropNameInTable="CurrentYearBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current1YearSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current1YearSpend" msprop:Generator_ColumnVarNameInTable="columnCurrent1YearSpend" msprop:Generator_ColumnPropNameInRow="Current1YearSpend" msprop:Generator_ColumnPropNameInTable="Current1YearSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current1YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current1YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent1YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current1YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current1YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current1YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current1YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent1YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current1YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current1YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current1YearBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current1YearBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnCurrent1YearBenefitIntang" msprop:Generator_ColumnPropNameInRow="Current1YearBenefitIntang" msprop:Generator_ColumnPropNameInTable="Current1YearBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current2YearSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current2YearSpend" msprop:Generator_ColumnVarNameInTable="columnCurrent2YearSpend" msprop:Generator_ColumnPropNameInRow="Current2YearSpend" msprop:Generator_ColumnPropNameInTable="Current2YearSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current2YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current2YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent2YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current2YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current2YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current2YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current2YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent2YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current2YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current2YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current2YearBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current2YearBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnCurrent2YearBenefitIntang" msprop:Generator_ColumnPropNameInRow="Current2YearBenefitIntang" msprop:Generator_ColumnPropNameInTable="Current2YearBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current3YearSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current3YearSpend" msprop:Generator_ColumnVarNameInTable="columnCurrent3YearSpend" msprop:Generator_ColumnPropNameInRow="Current3YearSpend" msprop:Generator_ColumnPropNameInTable="Current3YearSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current3YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current3YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent3YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current3YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current3YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current3YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current3YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent3YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current3YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current3YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current3YearBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current3YearBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnCurrent3YearBenefitIntang" msprop:Generator_ColumnPropNameInRow="Current3YearBenefitIntang" msprop:Generator_ColumnPropNameInTable="Current3YearBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current4YearSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current4YearSpend" msprop:Generator_ColumnVarNameInTable="columnCurrent4YearSpend" msprop:Generator_ColumnPropNameInRow="Current4YearSpend" msprop:Generator_ColumnPropNameInTable="Current4YearSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current4YearBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current4YearBenefitRG" msprop:Generator_ColumnVarNameInTable="columnCurrent4YearBenefitRG" msprop:Generator_ColumnPropNameInRow="Current4YearBenefitRG" msprop:Generator_ColumnPropNameInTable="Current4YearBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current4YearBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current4YearBenefitCR" msprop:Generator_ColumnVarNameInTable="columnCurrent4YearBenefitCR" msprop:Generator_ColumnPropNameInRow="Current4YearBenefitCR" msprop:Generator_ColumnPropNameInTable="Current4YearBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Current4YearBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Current4YearBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnCurrent4YearBenefitIntang" msprop:Generator_ColumnPropNameInRow="Current4YearBenefitIntang" msprop:Generator_ColumnPropNameInTable="Current4YearBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpend" msprop:Generator_ColumnVarNameInTable="columnTotalSpend" msprop:Generator_ColumnPropNameInRow="TotalSpend" msprop:Generator_ColumnPropNameInTable="TotalSpendColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitRG" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefitRG" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitRG" msprop:Generator_ColumnPropNameInRow="TotalBenefitRG" msprop:Generator_ColumnPropNameInTable="TotalBenefitRGColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitCR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefitCR" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitCR" msprop:Generator_ColumnPropNameInRow="TotalBenefitCR" msprop:Generator_ColumnPropNameInTable="TotalBenefitCRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalBenefitIntang" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefitIntang" msprop:Generator_ColumnVarNameInTable="columnTotalBenefitIntang" msprop:Generator_ColumnPropNameInRow="TotalBenefitIntang" msprop:Generator_ColumnPropNameInTable="TotalBenefitIntangColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROI" msdata:ReadOnly="true" msprop:Generator_UserColumnName="ROI" msprop:Generator_ColumnVarNameInTable="columnROI" msprop:Generator_ColumnPropNameInRow="ROI" msprop:Generator_ColumnPropNameInTable="ROIColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_ProviderView" msprop:Generator_UserTableName="spReport_ProviderView" msprop:Generator_RowDeletedName="spReport_ProviderViewRowDeleted" msprop:Generator_RowChangedName="spReport_ProviderViewRowChanged" msprop:Generator_RowClassName="spReport_ProviderViewRow" msprop:Generator_RowChangingName="spReport_ProviderViewRowChanging" msprop:Generator_RowEvArgName="spReport_ProviderViewRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_ProviderViewRowChangeEventHandler" msprop:Generator_TableClassName="spReport_ProviderViewDataTable" msprop:Generator_TableVarName="tablespReport_ProviderView" msprop:Generator_RowDeletingName="spReport_ProviderViewRowDeleting" msprop:Generator_TablePropName="spReport_ProviderView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Provider" msprop:Generator_UserColumnName="Provider" msprop:Generator_ColumnPropNameInRow="Provider" msprop:Generator_ColumnVarNameInTable="columnProvider" msprop:Generator_ColumnPropNameInTable="ProviderColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Level10Name" msprop:Generator_UserColumnName="Level10Name" msprop:Generator_ColumnPropNameInRow="Level10Name" msprop:Generator_ColumnVarNameInTable="columnLevel10Name" msprop:Generator_ColumnPropNameInTable="Level10NameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Level10Code" msprop:Generator_UserColumnName="Level10Code" msprop:Generator_ColumnPropNameInRow="Level10Code" msprop:Generator_ColumnVarNameInTable="columnLevel10Code" msprop:Generator_ColumnPropNameInTable="Level10CodeColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SumPreCurrent" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumPreCurrent" msprop:Generator_ColumnPropNameInRow="SumPreCurrent" msprop:Generator_ColumnVarNameInTable="columnSumPreCurrent" msprop:Generator_ColumnPropNameInTable="SumPreCurrentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent" msprop:Generator_ColumnPropNameInRow="SumCurrent" msprop:Generator_ColumnVarNameInTable="columnSumCurrent" msprop:Generator_ColumnPropNameInTable="SumCurrentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent1" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent1" msprop:Generator_ColumnPropNameInRow="SumCurrent1" msprop:Generator_ColumnVarNameInTable="columnSumCurrent1" msprop:Generator_ColumnPropNameInTable="SumCurrent1Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent2" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent2" msprop:Generator_ColumnPropNameInRow="SumCurrent2" msprop:Generator_ColumnVarNameInTable="columnSumCurrent2" msprop:Generator_ColumnPropNameInTable="SumCurrent2Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent3" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent3" msprop:Generator_ColumnPropNameInRow="SumCurrent3" msprop:Generator_ColumnVarNameInTable="columnSumCurrent3" msprop:Generator_ColumnPropNameInTable="SumCurrent3Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SumCurrent4" msdata:ReadOnly="true" msprop:Generator_UserColumnName="SumCurrent4" msprop:Generator_ColumnPropNameInRow="SumCurrent4" msprop:Generator_ColumnVarNameInTable="columnSumCurrent4" msprop:Generator_ColumnPropNameInTable="SumCurrent4Column" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Total" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInTable="TotalColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ProviderColour" msdata:ReadOnly="true" msprop:Generator_UserColumnName="ProviderColour" msprop:Generator_ColumnPropNameInRow="ProviderColour" msprop:Generator_ColumnVarNameInTable="columnProviderColour" msprop:Generator_ColumnPropNameInTable="ProviderColourColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_BenefitVsSpend_InitiativeDetails" msprop:Generator_UserTableName="spReport_BenefitVsSpend_InitiativeDetails" msprop:Generator_RowDeletedName="spReport_BenefitVsSpend_InitiativeDetailsRowDeleted" msprop:Generator_RowChangedName="spReport_BenefitVsSpend_InitiativeDetailsRowChanged" msprop:Generator_RowClassName="spReport_BenefitVsSpend_InitiativeDetailsRow" msprop:Generator_RowChangingName="spReport_BenefitVsSpend_InitiativeDetailsRowChanging" msprop:Generator_RowEvArgName="spReport_BenefitVsSpend_InitiativeDetailsRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_BenefitVsSpend_InitiativeDetailsRowChangeEventHandler" msprop:Generator_TableClassName="spReport_BenefitVsSpend_InitiativeDetailsDataTable" msprop:Generator_TableVarName="tablespReport_BenefitVsSpend_InitiativeDetails" msprop:Generator_RowDeletingName="spReport_BenefitVsSpend_InitiativeDetailsRowDeleting" msprop:Generator_TablePropName="spReport_BenefitVsSpend_InitiativeDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InitiativeID" msprop:Generator_UserColumnName="InitiativeID" msprop:Generator_ColumnVarNameInTable="columnInitiativeID" msprop:Generator_ColumnPropNameInRow="InitiativeID" msprop:Generator_ColumnPropNameInTable="InitiativeIDColumn" type="xs:int" />
+              <xs:element name="ImpactCategory" msprop:Generator_UserColumnName="ImpactCategory" msprop:Generator_ColumnVarNameInTable="columnImpactCategory" msprop:Generator_ColumnPropNameInRow="ImpactCategory" msprop:Generator_ColumnPropNameInTable="ImpactCategoryColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IGIdentifier" msprop:Generator_UserColumnName="IGIdentifier" msprop:Generator_ColumnVarNameInTable="columnIGIdentifier" msprop:Generator_ColumnPropNameInRow="IGIdentifier" msprop:Generator_ColumnPropNameInTable="IGIdentifierColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="InitiativeName" msprop:Generator_UserColumnName="InitiativeName" msprop:Generator_ColumnVarNameInTable="columnInitiativeName" msprop:Generator_ColumnPropNameInRow="InitiativeName" msprop:Generator_ColumnPropNameInTable="InitiativeNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalBenefit" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefit" msprop:Generator_ColumnVarNameInTable="columnTotalBenefit" msprop:Generator_ColumnPropNameInRow="TotalBenefit" msprop:Generator_ColumnPropNameInTable="TotalBenefitColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpend" msprop:Generator_ColumnVarNameInTable="columnTotalSpend" msprop:Generator_ColumnPropNameInRow="TotalSpend" msprop:Generator_ColumnPropNameInTable="TotalSpendColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spReport_BenefitVsSpend_ROIBubble" msprop:Generator_UserTableName="spReport_BenefitVsSpend_ROIBubble" msprop:Generator_RowDeletedName="spReport_BenefitVsSpend_ROIBubbleRowDeleted" msprop:Generator_RowChangedName="spReport_BenefitVsSpend_ROIBubbleRowChanged" msprop:Generator_RowClassName="spReport_BenefitVsSpend_ROIBubbleRow" msprop:Generator_RowChangingName="spReport_BenefitVsSpend_ROIBubbleRowChanging" msprop:Generator_RowEvArgName="spReport_BenefitVsSpend_ROIBubbleRowChangeEvent" msprop:Generator_RowEvHandlerName="spReport_BenefitVsSpend_ROIBubbleRowChangeEventHandler" msprop:Generator_TableClassName="spReport_BenefitVsSpend_ROIBubbleDataTable" msprop:Generator_TableVarName="tablespReport_BenefitVsSpend_ROIBubble" msprop:Generator_RowDeletingName="spReport_BenefitVsSpend_ROIBubbleRowDeleting" msprop:Generator_TablePropName="spReport_BenefitVsSpend_ROIBubble">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InitiativeID" msprop:Generator_UserColumnName="InitiativeID" msprop:Generator_ColumnVarNameInTable="columnInitiativeID" msprop:Generator_ColumnPropNameInRow="InitiativeID" msprop:Generator_ColumnPropNameInTable="InitiativeIDColumn" type="xs:int" />
+              <xs:element name="ImpactCategoryID" msprop:Generator_UserColumnName="ImpactCategoryID" msprop:Generator_ColumnVarNameInTable="columnImpactCategoryID" msprop:Generator_ColumnPropNameInRow="ImpactCategoryID" msprop:Generator_ColumnPropNameInTable="ImpactCategoryIDColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="ImpactCategory" msprop:Generator_UserColumnName="ImpactCategory" msprop:Generator_ColumnVarNameInTable="columnImpactCategory" msprop:Generator_ColumnPropNameInRow="ImpactCategory" msprop:Generator_ColumnPropNameInTable="ImpactCategoryColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IGIdentifier" msprop:Generator_UserColumnName="IGIdentifier" msprop:Generator_ColumnVarNameInTable="columnIGIdentifier" msprop:Generator_ColumnPropNameInRow="IGIdentifier" msprop:Generator_ColumnPropNameInTable="IGIdentifierColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalBenefit" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalBenefit" msprop:Generator_ColumnVarNameInTable="columnTotalBenefit" msprop:Generator_ColumnPropNameInRow="TotalBenefit" msprop:Generator_ColumnPropNameInTable="TotalBenefitColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSpend" msdata:ReadOnly="true" msprop:Generator_UserColumnName="TotalSpend" msprop:Generator_ColumnVarNameInTable="columnTotalSpend" msprop:Generator_ColumnPropNameInRow="TotalSpend" msprop:Generator_ColumnPropNameInTable="TotalSpendColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:spReport_BenefitvsSpend_Lines" />
+      <xs:field xpath="mstns:PeriodID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

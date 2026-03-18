@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using System.Data.SqlClient;  
+
+namespace TrackerBusinessObjects
+{
+    public class TrackerData
+    {
+
+        DataAccess m_dataAccess;
+
+        public TrackerData()
+        {
+            m_dataAccess = new DataAccess();
+            m_dataAccess.Initialise("DBConnection");
+            //m_dataAccess.Initialise("DBConnection_Test");
+        }
+
+//        public DataSet eCookBookData(string fullPath, string shortName, string LPARID, string ProductID)
+        // 8 Feb 2008 - Dan - OTA 294 - Uses Session("Username") to get only Deliverables visible for this login.
+        public DataSet eCookBookData(string fullPath, string LPARID, string ProductID, string Login)
+        {
+            try
+            {
+                m_dataAccess.ClearParameters();
+
+                m_dataAccess.AddInParameter("@FullPath", DbType.String, fullPath);
+                //m_dataAccess.AddInParameter("@ShortName", DbType.String, shortName);
+                m_dataAccess.AddInParameter("@LPARID", DbType.String, LPARID);
+                m_dataAccess.AddInParameter("@ProductID", DbType.String, ProductID );
+                m_dataAccess.AddInParameter("@strLogin", DbType.String, Login);
+
+                DataSet ds = new DataSet();
+                ds = m_dataAccess.ExecuteDataSet("GenericTracker_eCookBook");
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+
+        /// <summary>
+        /// public dataset to retrieve the list of possible ProductIDs or LPARIDs, relevant for this user
+        /// used to fill combo boxes. returncol selects the value - true = lparid, false ProductID.
+        /// 19 March 2008 - Robert H
+        /// </summary>
+        /// <param name="Login">Logon name</param>
+        /// <param name="returncol">Which column to return - either "lparid" or (default)"productid"</param>
+        /// <param name="whereclause">Used to get the LPARID column based on a ProductID lookup</param>
+        /// <returns>A DataSet of a single column</returns>
+        public DataSet getProductIDOrLPARID(string Login, bool returncol, string whereclause)
+        {
+            try
+            {
+                m_dataAccess.ClearParameters();
+
+                m_dataAccess.AddInParameter("@strLogin", DbType.String, Login);
+
+                if (returncol)
+                    m_dataAccess.AddInParameter("@param", DbType.String, "lparid");
+                else
+                    m_dataAccess.AddInParameter("@param", DbType.String, "productid");
+
+                m_dataAccess.AddInParameter("@WHERECLAUSE", DbType.String, whereclause);
+
+                DataSet ds = new DataSet();
+                ds = m_dataAccess.ExecuteDataSet("GenericTracker_eCookBook_Distinct_LPARID_or_ProductID ");
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public DataSet HLPSData()
+        {
+            throw new Exception("no implementation");
+        }
+        public DataSet SecurityData()
+        {
+            throw new Exception("no implementation");
+        }
+        public DataSet RetirementData()
+        {
+            throw new Exception("no implementation");
+        }
+    }
+}
