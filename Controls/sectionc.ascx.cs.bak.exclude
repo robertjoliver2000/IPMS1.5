@@ -1,0 +1,1770 @@
+//*****************************************************************************************************
+//      Rev         By          Date            Description
+//
+//      1.2.1       CA          23/06/2007      Del 90
+//      1.7.1       GMcF        20/08/2008      Del 95 - RTB Existing governance functionality
+//      1.7.2       GMcF        24/08/2007      Del 95 - RTB Existing governance functionality
+//                                              Was allowing "Submit for Review" while
+//                                              legacy RTB Existing had not been converted.
+//                                              
+//*****************************************************************************************************
+
+namespace ProjectPortfolio.Controls
+{
+    using System;
+    using System.Data;
+    using System.Configuration;
+    using System.Collections;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using System.Web.UI.WebControls.WebParts;
+    using System.Web.UI.HtmlControls;
+    using ProjectPortfolio.Classes;
+
+
+    public partial class SectionC : System.Web.UI.UserControl
+    {
+        protected int nInitiativeID;
+
+        private DataSet m_dsPeriod;
+        private DataSet m_dsInitiativeValues;
+        private DataSet m_dsFinancialRecords;
+
+        private const string DefaultCellWidth = "55px";
+        private const string Pre2006CellWidth = "75px";
+
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                nInitiativeID = Int32.Parse(Request.QueryString["InitiativeID"]);
+            }
+            catch (Exception)
+            {
+                nInitiativeID = -1;
+            }
+
+            // rev 1.2.1 CA
+            m_dsFinancialRecords = SectionC_DB.GetAllFinancialRecords(nInitiativeID);
+
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=6").ToString() != "0")
+            {
+                lblCapitalHardware.Visible = true;
+            }
+            else
+            {
+                lblCapitalHardware.Visible = false;
+            }
+
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=7").ToString() != "0")
+            {
+                lblBuildingPremises.Visible = true;
+            }
+            else
+            {
+                lblBuildingPremises.Visible = false;
+            }
+
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=8").ToString() != "0")
+            {
+                lblCapitalSoftware.Visible = true;
+            }
+            else
+            {
+                lblCapitalSoftware.Visible = false;
+            }
+
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=15").ToString() != "0")
+            {
+                lblMarketData.Visible = true;
+            }
+            else
+            {
+                lblMarketData.Visible = false;
+            }
+
+            // end rev 1.2.1
+
+            btnAddBenefit.Attributes.Add("onclick", "javascript:popupWindowAddFinancial(" + nInitiativeID.ToString() + ", 1, 0)");
+            btnAddSpend.Attributes.Add("onclick", "javascript:popupWindowAddFinancial(" + nInitiativeID.ToString() + ", 2, 0)");
+            btnAddRTBExisting.Attributes.Add("onclick", "javascript:popupWindowAddFinancial(" + nInitiativeID.ToString() + ", 9, 0)");
+            btnAddCapex.Attributes.Add("onclick", "javascript:popupWindowAddFinancialCapex(" + nInitiativeID.ToString() + ", 6, 0)");
+
+            //m_dsPeriod = Global_DB.GetPeriods(nInitiativeID);
+            m_dsPeriod = Global_DB.GetPeriodsForDisplay(nInitiativeID);
+            //m_dsInitiativeValues = SectionC_DB.GetInitiativeValues(nInitiativeID);
+            m_dsInitiativeValues = SectionC_DB.GetInitiativeValuesForDisplay(nInitiativeID);
+            m_dsFinancialRecords = SectionC_DB.GetAllFinancialRecords(nInitiativeID);
+
+            if (!Page.IsPostBack)
+            {
+                LoadInitiative();
+            }
+
+            BindRepeaters();
+        }
+
+
+        protected void BindRepeaters()
+        {
+
+            m_dsFinancialRecords = SectionC_DB.GetAllFinancialRecords(nInitiativeID);
+            m_dsInitiativeValues = SectionC_DB.GetInitiativeValuesForDisplay(nInitiativeID);
+
+            DataView dvBenefits = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvBenefits.RowFilter = "CategoryID=1";
+
+            rptBenefits.DataSource = dvBenefits;
+            rptBenefits.DataBind();
+
+            DataView dvSpendGTOOneTimeCosts = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendGTOOneTimeCosts.RowFilter = "CategoryID=2";
+
+            rptSpendGTOOneTimeCosts.DataSource = dvSpendGTOOneTimeCosts;
+            rptSpendGTOOneTimeCosts.DataBind();
+
+            DataView dvSpendBusinessOneTimeCosts = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendBusinessOneTimeCosts.RowFilter = "CategoryID=3";
+
+            rptSpendBusinessOneTimeCosts.DataSource = dvSpendBusinessOneTimeCosts;
+            rptSpendBusinessOneTimeCosts.DataBind();
+
+            DataView dvSpendGTORunningCosts = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendGTORunningCosts.RowFilter = "CategoryID=4";
+
+            rptSpendGTORunningCosts.DataSource = dvSpendGTORunningCosts;
+            rptSpendGTORunningCosts.DataBind();
+
+            DataView dvSpendBusinessRunningCosts = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendBusinessRunningCosts.RowFilter = "CategoryID=5";
+
+            rptSpendBusinessRunningCosts.DataSource = dvSpendBusinessRunningCosts;
+            rptSpendBusinessRunningCosts.DataBind();
+
+
+            DataView dvRTBExisting = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvRTBExisting.RowFilter = "";
+
+            // Rev 1.7.2 GMcF
+            DataView dvSpendRTBX_GTO = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendRTBX_GTO.RowFilter = "CategoryID in ( 9, 16 )";
+
+            rptSpendRTBX_GTO.DataSource = dvSpendRTBX_GTO;
+            rptSpendRTBX_GTO.DataBind();
+
+            DataView dvSpendRTBX_BusinessDirect = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendRTBX_BusinessDirect.RowFilter = "CategoryID = 17";
+
+            rptSpendRTBX_BusinessDirect.DataSource = dvSpendRTBX_BusinessDirect;
+            rptSpendRTBX_BusinessDirect.DataBind();
+
+            DataView dvSpendRTBX_Total = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendRTBX_Total.RowFilter = "CategoryID in ( 9, 16, 17 )";
+
+            rptSpendRTBX_Total.DataSource = dvSpendRTBX_Total;
+            rptSpendRTBX_Total.DataBind();
+            // End Rev 1.7.2
+
+            DataView dvGTOAnalysis = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvGTOAnalysis.RowFilter = "CategoryID=2 OR CategoryID=4";
+
+            rptGTOAnalysis.DataSource = dvGTOAnalysis;
+            rptGTOAnalysis.DataBind();
+
+
+            DataView dvCAPEXCapitalHardware = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvCAPEXCapitalHardware.RowFilter = "CategoryID=6";
+
+            rptCAPEXCapitalHardware.DataSource = dvCAPEXCapitalHardware;
+            rptCAPEXCapitalHardware.DataBind();
+
+            //rev 1.2.1 CA
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=6").ToString() != "0")
+            {
+                lblCapitalHardware.Visible = true;
+            }
+            //end rev 1.2.1
+
+            DataView dvCAPEXBuildingPremises = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvCAPEXBuildingPremises.RowFilter = "CategoryID=7";
+
+            rptCAPEXBuildingPremises.DataSource = dvCAPEXBuildingPremises;
+            rptCAPEXBuildingPremises.DataBind();
+
+            //rev 1.2.1 CA
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=7").ToString() != "0")
+            {
+                lblBuildingPremises.Visible = true;
+            }
+            //end rev 1.2.1
+
+            DataView dvCAPEXCapitalSoftware = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvCAPEXCapitalSoftware.RowFilter = "CategoryID=8";
+
+            rptCAPEXCapitalSoftware.DataSource = dvCAPEXCapitalSoftware;
+            rptCAPEXCapitalSoftware.DataBind();
+
+            //rev 1.2.1 CA
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=8").ToString() != "0")
+            {
+                lblCapitalSoftware.Visible = true;
+            }
+            //end rev 1.2.1
+
+            //rev 1.2.1 CA
+            DataView dvCAPEXMarketData = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvCAPEXMarketData.RowFilter = "CategoryID=15";
+
+            rptCAPEXMarketData.DataSource = dvCAPEXMarketData;
+            rptCAPEXMarketData.DataBind();
+
+            if (m_dsFinancialRecords.Tables["FinancialRecords"].Compute("COUNT(InitiativeFinancialID)", "CategoryID=15").ToString() != "0")
+            {
+                lblMarketData.Visible = true;
+            }
+            //end rev 1.2.1
+
+            // Ionut
+            DataView dvSpendGTOOneTimeCostsDepreciation = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendGTOOneTimeCostsDepreciation.RowFilter = "CategoryID=11";
+
+            rptSpendGTOOneTimeCostsDepreciation.DataSource = dvSpendGTOOneTimeCostsDepreciation;
+            rptSpendGTOOneTimeCostsDepreciation.DataBind();
+
+            DataView dvSpendBusinessOneTimeCostsDepreciation = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendBusinessOneTimeCostsDepreciation.RowFilter = "CategoryID=12";
+
+            rptSpendBusinessOneTimeCostsDepreciation.DataSource = dvSpendBusinessOneTimeCostsDepreciation;
+            rptSpendBusinessOneTimeCostsDepreciation.DataBind();
+
+            DataView dvSpendGTORunningCostsDepreciation = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendGTORunningCostsDepreciation.RowFilter = "CategoryID=13";
+
+            rptSpendGTORunningCostsDepreciation.DataSource = dvSpendGTORunningCostsDepreciation;
+            rptSpendGTORunningCostsDepreciation.DataBind();
+
+            DataView dvSpendBusinessRunningCostsDepreciation = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvSpendBusinessRunningCostsDepreciation.RowFilter = "CategoryID=14";
+
+            rptSpendBusinessRunningCostsDepreciation.DataSource = dvSpendBusinessRunningCostsDepreciation;
+            rptSpendBusinessRunningCostsDepreciation.DataBind();
+
+
+
+            DataView dvPayBack = new DataView(m_dsFinancialRecords.Tables["FinancialRecords"]);
+            dvPayBack.RowFilter = "";
+
+            rptPayBack.DataSource = dvPayBack;
+            rptPayBack.DataBind();
+        }
+
+
+        protected void LoadInitiative()
+        {
+
+            DataRow drInitiative = SectionC_DB.GetInitiativeDetails(nInitiativeID);
+
+            if (drInitiative != null)
+            {
+                ddlAdditionalConsumption.SelectedValue = drInitiative["RTBAdditionalConsumptionID"].ToString();
+            }
+        }
+
+
+        public int UpdateInitiative()
+        {
+            int intReturnValue = -1;
+
+            if (nInitiativeID > 0)
+            {
+                intReturnValue = SectionC_DB.UpdateInitiative(
+                                    nInitiativeID,
+                                    ddlAdditionalConsumption.SelectedItem.Text,
+                                    Convert.ToInt32(ddlAdditionalConsumption.SelectedValue));
+            }
+
+            return intReturnValue;
+        }
+
+
+        protected void rptBenefits_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Header:
+                    repeaters_DoDefaultHeaderBind(sender, e);
+                    break;
+
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=1)", "trTotal", "", "totalcell");
+                    break;
+            }
+        }
+
+
+        protected void rptSpendGTOOneTimeCosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Header:
+                    repeaters_DoDefaultHeaderBind(sender, e);
+                    break;
+
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                // Ionut: was removed because depreciations are added via Add CAPEX button
+                //case ListItemType.Footer:
+                //    repeaters_DoDefaultDepreciationBind(sender, e, 11, "trDepreciation", "",
+                //            "Please contact your BAC on how to calculate quarterly/annual depreciation values and whether they will be booked as CTB or RTB");
+                //    break;
+            }
+        }
+
+        protected void rptSpendGTOOneTimeCostsDepreciation_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultDepreciationBind(sender, e, 11, "trDepreciation", "");
+                    break;
+            }
+        }
+
+        protected void rptSpendBusinessOneTimeCosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                // Ionut: was removed because depreciations are added via Add CAPEX button
+                //case ListItemType.Footer:
+                //    repeaters_DoDefaultDepreciationBind(sender, e, 12, "trDepreciation", "",
+                //            "Please contact your BAC on how to calculate quarterly/annual depreciation values and whether they will be booked as CTB or RTB");
+                //    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=2 OR CategoryID=3 OR CategoryID=11 OR CategoryID=12)", "trTotal", "", "totalcell");
+                //    break;
+            }
+        }
+
+        protected void rptSpendBusinessOneTimeCostsDepreciation_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultDepreciationBind(sender, e, 12, "trDepreciation", "");
+                    break;
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=2 OR CategoryID=3 OR CategoryID=11 OR CategoryID=12)", "trTotal", "", "totalcell");
+                    break;
+            }
+        }
+
+        protected void rptSpendGTORunningCosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                // Ionut: was removed because depreciations are added via Add CAPEX button
+                //case ListItemType.Footer:
+                //    repeaters_DoDefaultDepreciationBind(sender, e, 13, "trDepreciation", "", 
+                //                "Please contact your BAC on how to calculate quarterly/annual depreciation values and whether they will be booked as CTB or RTB");
+                //    break;
+            }
+        }
+
+        protected void rptSpendGTORunningCostsDepreciation_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultDepreciationBind(sender, e, 13, "trDepreciation", "");
+                    break;
+            }
+        }
+
+        protected void rptSpendBusinessRunningCosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                //case ListItemType.Footer:
+                //    repeaters_DoDefaultDepreciationBind(sender, e, 14, "trDepreciation", "",
+                //            "Please contact your BAC on how to calculate quarterly/annual depreciation values and whether they will be booked as CTB or RTB");
+                //    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=4 OR CategoryID=5 OR CategoryID=13 OR CategoryID=14)", "trSubTotal", "", "totalcell");
+                //    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=2 OR CategoryID=3 OR CategoryID=4 OR CategoryID=5 OR " + 
+                //                                              "CategoryID=11 OR CategoryID=12 OR CategoryID=13 OR CategoryID=14)", 
+                //                                    "trTotal", "", "totalcell");
+                //    break;
+            }
+        }
+
+        protected void rptSpendBusinessRunningCostsDepreciation_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultDepreciationBind(sender, e, 13, "trDepreciation", "");
+                    break;
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=4 OR CategoryID=5 OR CategoryID=13 OR CategoryID=14)", "trSubTotal", "", "totalcell");
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=2 OR CategoryID=3 OR CategoryID=4 OR CategoryID=5 OR " +
+                                                              "CategoryID=11 OR CategoryID=12 OR CategoryID=13 OR CategoryID=14)",
+                                                    "trTotal", "", "totalcell");
+                    break;
+            }
+        }
+
+        // Rev 1.7.2 GMcF - Deliverable 95 - RTB Existing governance functionality - GTO and Business Direct shown separately
+        protected void rptSpendRTBX_GTO_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID in ( 9, 16 ))", "trTotalRTBExisting", "", "depreciationcell");
+                    break;
+            }
+        }
+
+        protected void rptSpendRTBX_Business_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID = 17)", "trTotalRTBExisting", "", "depreciationcell");
+                    break;
+            }
+        }
+
+        protected void rptSpendRTBX_Total_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID in ( 9, 16, 17 ))", "trTotalRTBExisting", "", "depreciationcell");
+                    break;
+            }
+        }
+        // End Rev 1.7.2
+
+        protected void rptRTBExisting_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                //case ListItemType.Footer:
+                //    repeaters_DoDefaultDepreciationBind(sender, e, 9, "trRTBExisting", "",
+                //            "Click to edit RTB Existing values");
+                //    break;
+            }
+        }
+
+
+        protected void rptCAPEXCapitalHardware_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Header:
+                    repeaters_DoDefaultHeaderBind(sender, e);
+                    break;
+
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                //case ListItemType.Footer:
+                //    break;
+
+                case ListItemType.Footer:
+
+                    //rev 1.2.1 CA
+                    if (lblMarketData.Visible || lblBuildingPremises.Visible || lblCapitalHardware.Visible || lblCapitalSoftware.Visible)
+                    {
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='GTO Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal11", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='Business Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal21", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15)", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal31", "background-color:#F0FFF2;", "totalcell");
+
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=11 OR CategoryID=12 OR CategoryID=13 OR CategoryID=14)",
+                                                        "trDepreciation1", "background-color:#F0FFF2;", "totalcell");
+
+                    }
+                    break;
+                    // end rev 1.2.1
+            }
+            //rev 1.2.1 CA
+            if ((((lblMarketData.Visible == true) || (lblBuildingPremises.Visible == true) || (lblCapitalSoftware.Visible == true)) == true) || (lblCapitalHardware.Visible == false))
+            //if (((lblMarketData.Visible == false) && (lblBuildingPremises.Visible == false) && (lblCapitalSoftware.Visible == false)) == true)
+            {
+                Label lblTotalGTOCapex1 = (Label)e.Item.FindControl("lblTotalGTOCapex1");
+                if (lblTotalGTOCapex1 != null)
+                {
+                    lblTotalGTOCapex1.Visible = false;
+                }
+
+                Label lblTotalBusinessCapex1 = (Label)e.Item.FindControl("lblTotalBusinessCapex1");
+                if (lblTotalBusinessCapex1 != null)
+                {
+                    lblTotalBusinessCapex1.Visible = false;
+                }
+
+                Label lblTotalCapex1 = (Label)e.Item.FindControl("lblTotalCapex1");
+                if (lblTotalCapex1 != null)
+                {
+                    lblTotalCapex1.Visible = false;
+                }
+
+                Label lblTotalDepreciation1 = (Label)e.Item.FindControl("lblTotalDepreciation1");
+                if (lblTotalDepreciation1 != null)
+                {
+                    lblTotalDepreciation1.Visible = false;
+                }
+
+
+                HtmlTableRow trSubTotal11 = (HtmlTableRow)e.Item.FindControl("trSubTotal11");
+                if (trSubTotal11 != null)
+                {
+                    trSubTotal11.Visible = false;
+                }
+
+                HtmlTableRow trSubTotal21 = (HtmlTableRow)e.Item.FindControl("trSubTotal21");
+                if (trSubTotal21 != null)
+                {
+                    trSubTotal21.Visible = false;
+                }
+
+                HtmlTableRow trSubTotal31 = (HtmlTableRow)e.Item.FindControl("trSubTotal31");
+                if (trSubTotal31 != null)
+                {
+                    trSubTotal31.Visible = false;
+                }
+
+                HtmlTableRow trDepreciation1 = (HtmlTableRow)e.Item.FindControl("trDepreciation1");
+                if (trDepreciation1 != null)
+                {
+                    trDepreciation1.Visible = false;
+                }
+
+                HtmlTableRow trblank11 = (HtmlTableRow)e.Item.FindControl("trblank11");
+                if (trblank11 != null)
+                {
+                    trblank11.Visible = false;
+                }
+
+                HtmlTableRow trblank21 = (HtmlTableRow)e.Item.FindControl("trblank21");
+                if (trblank21 != null)
+                {
+                    trblank21.Visible = false;
+                }
+
+                HtmlTableRow trblank31 = (HtmlTableRow)e.Item.FindControl("trblank31");
+                if (trblank31 != null)
+                {
+                    trblank31.Visible = false;
+                }
+
+                HtmlTableRow trblank41 = (HtmlTableRow)e.Item.FindControl("trblank41");
+                if (trblank41 != null)
+                {
+                    trblank41.Visible = false;
+                }
+
+                HtmlTableRow trblank51 = (HtmlTableRow)e.Item.FindControl("trblank51");
+                if (trblank51 != null)
+                {
+                    trblank51.Visible = false;
+                }
+            }
+            // end rev 1.2.1
+
+        }
+
+
+        protected void rptCAPEXBuildingPremises_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                case ListItemType.Footer:
+
+                    //rev 1.2.1 CA
+                    if (lblMarketData.Visible || lblBuildingPremises.Visible || lblCapitalHardware.Visible || lblCapitalSoftware.Visible)
+                    {
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='GTO Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal12", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='Business Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal22", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15)", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal32", "background-color:#F0FFF2;", "totalcell");
+
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=11 OR CategoryID=12 OR CategoryID=13 OR CategoryID=14)",
+                                                        "trDepreciation2", "background-color:#F0FFF2;", "totalcell");
+
+                    }
+                    break;
+                    // end rev 1.2.1
+            }
+            //rev 1.2.1 CA
+            if ((((lblMarketData.Visible == true) || (lblCapitalSoftware.Visible == true)) == true) || (lblBuildingPremises.Visible == false))
+            //if (((lblMarketData.Visible == false) && (lblCapitalHardware.Visible == false) && (lblCapitalSoftware.Visible == false)) == true)
+            {
+                Label lblTotalGTOCapex2 = (Label)e.Item.FindControl("lblTotalGTOCapex2");
+                if (lblTotalGTOCapex2 != null)
+                {
+                    lblTotalGTOCapex2.Visible = false;
+                }
+
+                Label lblTotalBusinessCapex2 = (Label)e.Item.FindControl("lblTotalBusinessCapex2");
+                if (lblTotalBusinessCapex2 != null)
+                {
+                    lblTotalBusinessCapex2.Visible = false;
+                }
+
+                Label lblTotalCapex2 = (Label)e.Item.FindControl("lblTotalCapex2");
+                if (lblTotalCapex2 != null)
+                {
+                    lblTotalCapex2.Visible = false;
+                }
+
+                Label lblTotalDepreciation2 = (Label)e.Item.FindControl("lblTotalDepreciation2");
+                if (lblTotalDepreciation2 != null)
+                {
+                    lblTotalDepreciation2.Visible = false;
+                }
+
+
+                HtmlTableRow trSubTotal12 = (HtmlTableRow)e.Item.FindControl("trSubTotal12");
+                if (trSubTotal12 != null)
+                {
+                    trSubTotal12.Visible = false;
+                }
+
+                HtmlTableRow trSubTotal22 = (HtmlTableRow)e.Item.FindControl("trSubTotal22");
+                if (trSubTotal22 != null)
+                {
+                    trSubTotal22.Visible = false;
+                }
+
+                HtmlTableRow trSubTotal32 = (HtmlTableRow)e.Item.FindControl("trSubTotal32");
+                if (trSubTotal32 != null)
+                {
+                    trSubTotal32.Visible = false;
+                }
+
+                HtmlTableRow trDepreciation2 = (HtmlTableRow)e.Item.FindControl("trDepreciation2");
+                if (trDepreciation2 != null)
+                {
+                    trDepreciation2.Visible = false;
+                }
+
+                HtmlTableRow trblank12 = (HtmlTableRow)e.Item.FindControl("trblank12");
+                if (trblank12 != null)
+                {
+                    trblank12.Visible = false;
+                }
+
+                HtmlTableRow trblank22 = (HtmlTableRow)e.Item.FindControl("trblank22");
+                if (trblank22 != null)
+                {
+                    trblank22.Visible = false;
+                }
+
+                HtmlTableRow trblank32 = (HtmlTableRow)e.Item.FindControl("trblank32");
+                if (trblank32 != null)
+                {
+                    trblank32.Visible = false;
+                }
+
+                HtmlTableRow trblank42 = (HtmlTableRow)e.Item.FindControl("trblank42");
+                if (trblank42 != null)
+                {
+                    trblank42.Visible = false;
+                }
+
+                HtmlTableRow trblank52 = (HtmlTableRow)e.Item.FindControl("trblank52");
+                if (trblank52 != null)
+                {
+                    trblank52.Visible = false;
+                }
+            }
+            // end rev 1.2.1
+
+        }
+
+
+        protected void rptCAPEXCapitalSoftware_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+                case ListItemType.Footer:
+
+                    // rev 1.2.1 CA
+                    if (lblMarketData.Visible || lblBuildingPremises.Visible || lblCapitalHardware.Visible || lblCapitalSoftware.Visible)
+                    {
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='GTO Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal13", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='Business Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal23", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15)", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal33", "background-color:#F0FFF2;", "totalcell");
+
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=11 OR CategoryID=12 OR CategoryID=13 OR CategoryID=14)",
+                                                        "trDepreciation3", "background-color:#F0FFF2;", "totalcell");
+
+                    }
+                    break;
+                    // end rev 1.2.1 
+            }
+            //rev 1.2.1 CA
+            if ((((lblMarketData.Visible == true)) == true) || (lblCapitalSoftware.Visible == false))
+            //if (((lblMarketData.Visible == false) && (lblBuildingPremises.Visible == false) && (lblCapitalHardware.Visible == false)) == true)
+            {
+                Label lblTotalGTOCapex3 = (Label)e.Item.FindControl("lblTotalGTOCapex3");
+                if (lblTotalGTOCapex3 != null)
+                {
+                    lblTotalGTOCapex3.Visible = false;
+                }
+
+                Label lblTotalBusinessCapex3 = (Label)e.Item.FindControl("lblTotalBusinessCapex3");
+                if (lblTotalBusinessCapex3 != null)
+                {
+                    lblTotalBusinessCapex3.Visible = false;
+                }
+
+                Label lblTotalCapex3 = (Label)e.Item.FindControl("lblTotalCapex3");
+                if (lblTotalCapex3 != null)
+                {
+                    lblTotalCapex3.Visible = false;
+                }
+
+                Label lblTotalDepreciation3 = (Label)e.Item.FindControl("lblTotalDepreciation3");
+                if (lblTotalDepreciation3 != null)
+                {
+                    lblTotalDepreciation3.Visible = false;
+                }
+
+
+                HtmlTableRow trSubTotal13 = (HtmlTableRow)e.Item.FindControl("trSubTotal13");
+                if (trSubTotal13 != null)
+                {
+                    trSubTotal13.Visible = false;
+                }
+
+                HtmlTableRow trSubTotal23 = (HtmlTableRow)e.Item.FindControl("trSubTotal23");
+                if (trSubTotal23 != null)
+                {
+                    trSubTotal23.Visible = false;
+                }
+
+                HtmlTableRow trSubTotal33 = (HtmlTableRow)e.Item.FindControl("trSubTotal33");
+                if (trSubTotal33 != null)
+                {
+                    trSubTotal33.Visible = false;
+                }
+
+                HtmlTableRow trDepreciation3 = (HtmlTableRow)e.Item.FindControl("trDepreciation3");
+                if (trDepreciation3 != null)
+                {
+                    trDepreciation3.Visible = false;
+                }
+
+                HtmlTableRow trblank13 = (HtmlTableRow)e.Item.FindControl("trblank13");
+                if (trblank13 != null)
+                {
+                    trblank13.Visible = false;
+                }
+
+                HtmlTableRow trblank23 = (HtmlTableRow)e.Item.FindControl("trblank23");
+                if (trblank23 != null)
+                {
+                    trblank23.Visible = false;
+                }
+
+                HtmlTableRow trblank33 = (HtmlTableRow)e.Item.FindControl("trblank33");
+                if (trblank33 != null)
+                {
+                    trblank33.Visible = false;
+                }
+
+                HtmlTableRow trblank43 = (HtmlTableRow)e.Item.FindControl("trblank43");
+                if (trblank43 != null)
+                {
+                    trblank43.Visible = false;
+                }
+
+                HtmlTableRow trblank53 = (HtmlTableRow)e.Item.FindControl("trblank53");
+                if (trblank53 != null)
+                {
+                    trblank53.Visible = false;
+                }
+            }
+            // end rev 1.2.1
+
+        }
+
+        protected void rptCAPEXMarketData_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    repeaters_DoDefaultItemBind(sender, e);
+                    break;
+
+
+                //rev 1.2.1 CA
+                case ListItemType.Footer:
+
+                    if (lblMarketData.Visible || lblBuildingPremises.Visible || lblCapitalHardware.Visible || lblCapitalSoftware.Visible)
+                    {
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='GTO Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal1", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND Type='Business Capex')", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal2", "background-color:#F0FFF2;", "totalcell");
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15)", //rev 1.2.1 added Category 15 CA
+                                                        "trSubTotal3", "background-color:#F0FFF2;", "totalcell");
+
+                        repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=11 OR CategoryID=12 OR CategoryID=13 OR CategoryID=14)",
+                                                        "trDepreciation", "background-color:#F0FFF2;", "totalcell");
+
+                    }
+                    break;
+                //end rev 1.2.1
+            }
+
+            // rev 1.2.1 CA
+            if (lblMarketData.Visible == false)
+            //if (((lblBuildingPremises.Visible == false) && (lblCapitalHardware.Visible == false) && (lblCapitalSoftware.Visible == false)) == true)
+            {
+                Label lblTotalGTOCapex = (Label)e.Item.FindControl("lblTotalGTOCapex");
+                if (lblTotalGTOCapex != null)
+                {
+                    lblTotalGTOCapex.Visible = false;
+                }
+
+                Label lblTotalBusinessCapex = (Label)e.Item.FindControl("lblTotalBusinessCapex");
+                if (lblTotalBusinessCapex != null)
+                {
+                    lblTotalBusinessCapex.Visible = false;
+                }
+
+                Label lblTotalCapex = (Label)e.Item.FindControl("lblTotalCapex");
+                if (lblTotalCapex != null)
+                {
+                    lblTotalCapex.Visible = false;
+                }
+
+                Label lblTotalDepreciation = (Label)e.Item.FindControl("lblTotalDepreciation");
+                if (lblTotalDepreciation != null)
+                {
+                    lblTotalDepreciation.Visible = false;
+                }
+
+
+                HtmlTableRow trSubTotal1 = (HtmlTableRow)e.Item.FindControl("trSubTotal1");
+                if (trSubTotal1 != null)
+                {
+                    trSubTotal1.Visible = false;
+                    //trSubTotal1.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trSubTotal2 = (HtmlTableRow)e.Item.FindControl("trSubTotal2");
+                if (trSubTotal2 != null)
+                {
+                    trSubTotal2.Visible = false;
+                    //trSubTotal2.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trSubTotal3 = (HtmlTableRow)e.Item.FindControl("trSubTotal3");
+                if (trSubTotal3 != null)
+                {
+                    trSubTotal3.Visible = false;
+                    //trSubTotal3.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trDepreciation = (HtmlTableRow)e.Item.FindControl("trDepreciation");
+                if (trDepreciation != null)
+                {
+                    trDepreciation.Visible = false;
+                    //trDepreciation.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trblank1 = (HtmlTableRow)e.Item.FindControl("trblank1");
+                if (trblank1 != null)
+                {
+                    trblank1.Visible = false;
+                    trblank1.Attributes.Add("colspan", "25");
+                }
+
+                HtmlTableRow trblank2 = (HtmlTableRow)e.Item.FindControl("trblank2");
+                if (trblank2 != null)
+                {
+                    trblank2.Visible = false;
+                    //trblank2.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trblank3 = (HtmlTableRow)e.Item.FindControl("trblank3");
+                if (trblank3 != null)
+                {
+                    trblank3.Visible = false;
+                    //trblank3.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trblank4 = (HtmlTableRow)e.Item.FindControl("trblank4");
+                if (trblank4 != null)
+                {
+                    trblank4.Visible = false;
+                    //trblank4.Attributes.Add("Width", "100%");
+                }
+
+                HtmlTableRow trblank5 = (HtmlTableRow)e.Item.FindControl("trblank5");
+                if (trblank5 != null)
+                {
+                    trblank5.Visible = false;
+                    //trblank5.Attributes.Add("Width", "100%");
+                }
+            }
+            // end rev 1.2.1
+
+        }
+
+
+        protected void rptGTOAnalysis_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Footer:
+                    repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=2 OR CategoryID=4 OR CategoryID=11 OR CategoryID=13) AND Type='CTB')",
+                                                    "trSubTotal1", "background-color:#F0FFF2;", "totalcell");
+                    repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=2 OR CategoryID=4 OR CategoryID=11 OR CategoryID=13) AND Type='MAN')",
+                                                    "trSubTotal2", "background-color:#F0FFF2;", "totalcell");
+                    repeaters_DoDefaultFooterBind(sender, e, "((CategoryID=2 OR CategoryID=4 OR CategoryID=11 OR CategoryID=13) AND Type='RTB')",
+                                                    "trSubTotal3", "background-color:#F0FFF2;", "totalcell");
+
+                    repeaters_DoDefaultFooterBind(sender, e, "(CategoryID=2 OR CategoryID=4 OR CategoryID=11 OR CategoryID=13)", "trTotal", "", "totalcell");
+
+                    break;
+            }
+        }
+
+
+        protected void rptPayBack_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Footer)
+            {
+                HtmlTableCell tdTotalCell, tdNetCashFlow, tdNetCashFlowCumulated;
+                object objTotalBenefits, objTotalExpenses;
+                decimal dTotalBenefits, dTotalExpenses, dCumulatedCashFlow = 0.0m;
+
+                HtmlTableRow trNetCashFlow = (HtmlTableRow)e.Item.FindControl("trNetCashFlow");
+                HtmlTableRow trNetCashFlowCumulated = (HtmlTableRow)e.Item.FindControl("trNetCashFlowCumulated");
+
+                foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                {
+                    //if ((bool)drPeriod["HasQuarters"])
+                    if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                    {
+                        for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                        {
+                            tdNetCashFlow = new HtmlTableCell();
+                            tdNetCashFlowCumulated = new HtmlTableCell();
+
+                            objTotalBenefits = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                                "CategoryID=1 AND " +
+                                                                "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                                                "QuarterNo=" + quarterIndex.ToString());
+
+                            objTotalExpenses = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                                "(CategoryID=2 OR CategoryID=3 OR CategoryID=4 OR CategoryID=5 OR " +
+                                                                        "CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND " + //rev 1.2.1 added Category 15 CA
+                                                                "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                                                "QuarterNo=" + quarterIndex.ToString());
+
+                            dTotalBenefits = (objTotalBenefits == DBNull.Value) ? 0.0m : (Decimal)objTotalBenefits;
+                            dTotalExpenses = (objTotalExpenses == DBNull.Value) ? 0.0m : (Decimal)objTotalExpenses;
+
+                            dCumulatedCashFlow += (dTotalBenefits - dTotalExpenses);
+
+                            tdNetCashFlow.InnerText = (dTotalBenefits - dTotalExpenses).ToString("N2");
+                            tdNetCashFlow.Attributes.Add("Class", "totalcell");
+                            tdNetCashFlow.Attributes.Add("Width", DefaultCellWidth);
+                            tdNetCashFlow.Attributes.Add("Align", "center");
+                            tdNetCashFlow.Attributes.Add("style", "");
+
+                            tdNetCashFlowCumulated.InnerText = dCumulatedCashFlow.ToString("N2");
+                            tdNetCashFlowCumulated.Attributes.Add("Class", "totalcell");
+                            tdNetCashFlowCumulated.Attributes.Add("Width", DefaultCellWidth);
+                            tdNetCashFlowCumulated.Attributes.Add("Align", "center");
+                            tdNetCashFlowCumulated.Attributes.Add("style", "");
+
+                            trNetCashFlow.Cells.Add(tdNetCashFlow);
+                            trNetCashFlowCumulated.Cells.Add(tdNetCashFlowCumulated);
+                        }
+                    }
+                    else
+                    {
+                        tdNetCashFlow = new HtmlTableCell();
+                        tdNetCashFlowCumulated = new HtmlTableCell();
+
+                        objTotalBenefits = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                            "CategoryID=1 AND " +
+                                                            "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                                            "QuarterNo IS NULL");
+
+                        objTotalExpenses = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                            "(CategoryID=2 OR CategoryID=3 OR CategoryID=4 OR CategoryID=5 OR " +
+                                                                    "CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15) AND " + //rev 1.2.1 added Category 15 CA
+                                                            "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                                            "QuarterNo IS NULL");
+
+                        dTotalBenefits = (objTotalBenefits == DBNull.Value) ? 0.0m : (Decimal)objTotalBenefits;
+                        dTotalExpenses = (objTotalExpenses == DBNull.Value) ? 0.0m : (Decimal)objTotalExpenses;
+
+                        dCumulatedCashFlow += (dTotalBenefits - dTotalExpenses);
+
+                        tdNetCashFlow.InnerText = (dTotalBenefits - dTotalExpenses).ToString("N2");
+                        tdNetCashFlow.Attributes.Add("Class", "totalcell");
+                        tdNetCashFlow.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                        tdNetCashFlow.Attributes.Add("Align", "center");
+                        tdNetCashFlow.Attributes.Add("style", "");
+
+                        tdNetCashFlowCumulated.InnerText = dCumulatedCashFlow.ToString("N2");
+                        tdNetCashFlowCumulated.Attributes.Add("Class", "totalcell");
+                        tdNetCashFlowCumulated.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                        tdNetCashFlowCumulated.Attributes.Add("Align", "center");
+                        tdNetCashFlowCumulated.Attributes.Add("style", "");
+
+                        trNetCashFlow.Cells.Add(tdNetCashFlow);
+                        trNetCashFlowCumulated.Cells.Add(tdNetCashFlowCumulated);
+                    }
+                }
+
+                tdTotalCell = new HtmlTableCell();
+
+                objTotalBenefits = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)", "CategoryID=1");
+                objTotalExpenses = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                    "(CategoryID=2 OR CategoryID=3 OR CategoryID=4 OR CategoryID=5 OR " +
+                                                    " CategoryID=6 OR CategoryID=7 OR CategoryID=8 OR CategoryID=15)"); //rev 1.2.1 added Category 15 CA
+
+                dTotalBenefits = (objTotalBenefits == DBNull.Value) ? 0.0m : (Decimal)objTotalBenefits;
+                dTotalExpenses = (objTotalExpenses == DBNull.Value) ? 0.0m : (Decimal)objTotalExpenses;
+
+                tdTotalCell.InnerText = (dTotalBenefits - dTotalExpenses).ToString("N2");
+
+                tdTotalCell.Attributes.Add("Class", "totalcell");
+                tdTotalCell.Attributes.Add("Width", DefaultCellWidth);
+                tdTotalCell.Attributes.Add("Align", "center");
+                tdTotalCell.Attributes.Add("style", "");
+
+                trNetCashFlow.Cells.Add(tdTotalCell);
+
+                tdTotalCell = new HtmlTableCell();
+                tdTotalCell.Attributes.Add("Class", "empty");
+                trNetCashFlowCumulated.Cells.Add(tdTotalCell);
+
+                tdTotalCell = new HtmlTableCell();
+                tdTotalCell.Attributes.Add("Class", "emptynopadding");
+                trNetCashFlow.Cells.Add(tdTotalCell);
+
+                tdTotalCell = new HtmlTableCell();
+                tdTotalCell.Attributes.Add("Class", "emptynopadding");
+                trNetCashFlowCumulated.Cells.Add(tdTotalCell);
+            }
+
+        }
+
+
+        protected void repeaters_DoDefaultHeaderBind(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Header)
+            {
+                HtmlTableRow trHeaderRow = (HtmlTableRow)e.Item.FindControl("trHeader");
+                HtmlTableCell tdTitleCell;
+
+                HtmlTableCell tdSpanTitle = (HtmlTableCell)e.Item.FindControl("tdSpanTitle");
+
+                if (tdSpanTitle != null)
+                {
+                    tdSpanTitle.Attributes["colspan"] = ((int)m_dsPeriod.Tables["Period"].Compute("COUNT(PeriodID)", "") +
+                                                        (int)m_dsPeriod.Tables["Period"].Compute("COUNT(PeriodID)*3", "HasQuarters=1")
+                                                            + 1).ToString();
+                }
+
+                foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                {
+                    //if ((bool)drPeriod["HasQuarters"])
+                    if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                    {
+                        for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                        {
+                            tdTitleCell = new HtmlTableCell();
+                            tdTitleCell.InnerText = "Q" + quarterIndex.ToString() + " " + drPeriod["Name"].ToString();
+                            tdTitleCell.Attributes.Add("Class", "headcell");
+                            tdTitleCell.Attributes.Add("Width", DefaultCellWidth);
+                            tdTitleCell.Attributes.Add("Align", "center");
+                            trHeaderRow.Cells.Add(tdTitleCell);
+                        }
+                    }
+                    else
+                    {
+                        tdTitleCell = new HtmlTableCell();
+                        tdTitleCell.InnerText = drPeriod["Name"].ToString();
+                        tdTitleCell.Attributes.Add("Class", "headcell");
+                        tdTitleCell.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                        tdTitleCell.Attributes.Add("Align", "center");
+                        trHeaderRow.Cells.Add(tdTitleCell);
+                    }
+                }
+
+                tdTitleCell = new HtmlTableCell();
+                tdTitleCell.InnerText = "TOTAL";
+                tdTitleCell.Attributes.Add("Class", "headcell");
+                tdTitleCell.Attributes.Add("Width", DefaultCellWidth);
+                tdTitleCell.Attributes.Add("Align", "center");
+                trHeaderRow.Cells.Add(tdTitleCell);
+
+                tdTitleCell = new HtmlTableCell();
+                tdTitleCell.Attributes.Add("Class", "emptynopadding");
+                trHeaderRow.Cells.Add(tdTitleCell);
+            }
+        }
+
+
+        protected void repeaters_DoDefaultItemBind(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                if (DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID") != DBNull.Value)
+                {
+                    ImageButton imgDelete = (ImageButton)e.Item.FindControl("imgDelete");
+                    if (imgDelete != null)
+                    {
+                        imgDelete.Attributes.Add("onclick", "javascript: if (confirm('Are you sure you wish to delete this record?')) AllowOneTimeSubmit(); else return false;");
+                    }
+
+                    int intInitiativeFinancialID = (int)DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID");
+
+                    // Rev 1.7.2 GMcF
+                    TextBox txtLegacyRTBExistingCheck = (TextBox)e.Item.FindControl("txtLegacyRTBExistingCheck");
+                    if (txtLegacyRTBExistingCheck != null)
+                    {
+                        txtLegacyRTBExistingCheck.Text = Convert.ToString(DataBinder.Eval(e.Item.DataItem, "CategoryID")) + "|" + (string)DataBinder.Eval(e.Item.DataItem, "IGApprovalStatus");
+                        string strCheck;
+                        switch( Convert.ToString(DataBinder.Eval(e.Item.DataItem, "CategoryID")) + "|" + (string)DataBinder.Eval(e.Item.DataItem, "IGApprovalStatus") )
+                        {
+                            case "9|IG Draft":
+                            case "9|In Review":
+                            case "9|Budget Request":
+                                strCheck = "";
+                                break;
+                            default:
+                                strCheck = "OK";
+                                break;
+                        }
+                        txtLegacyRTBExistingCheck.Text = strCheck;
+                    }
+                    // End of Rev 1.7.2
+
+                    HtmlTableCell tdValueCell;
+                    object objValue;
+                    HtmlTableRow trItemRow = (HtmlTableRow)e.Item.FindControl("trItem");
+
+                    foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                    {
+                        //if ((bool)drPeriod["HasQuarters"])
+                        if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                        {
+                            for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                            {
+                                tdValueCell = new HtmlTableCell();
+
+                                DataRow[] drValues = m_dsInitiativeValues.Tables["InitiativeValue"].Select(
+                                              "ReferenceID = " + intInitiativeFinancialID.ToString() + " AND " +
+                                              "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                              "QuarterNo=" + quarterIndex.ToString());
+                                if (drValues.Length > 0) objValue = drValues[0]["Amount"]; else objValue = DBNull.Value;
+
+                                tdValueCell.InnerText = (objValue == DBNull.Value) ? "0.00" : ((Decimal)objValue).ToString("N2");
+
+                                tdValueCell.Attributes.Add("Class", e.Item.ItemType == ListItemType.AlternatingItem ? "alternateincell" : "incell");
+                                tdValueCell.Attributes.Add("Width", DefaultCellWidth);
+                                tdValueCell.Attributes.Add("Align", "center");
+                                trItemRow.Cells.Add(tdValueCell);
+                            }
+                        }
+                        else
+                        {
+                            tdValueCell = new HtmlTableCell();
+
+                            DataRow[] drValues = m_dsInitiativeValues.Tables["InitiativeValue"].Select(
+                                             "ReferenceID = " + intInitiativeFinancialID.ToString() + " AND " +
+                                             "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                             "QuarterNo IS NULL");
+                            if (drValues.Length > 0) objValue = drValues[0]["Amount"]; else objValue = DBNull.Value;
+
+                            tdValueCell.InnerText = (objValue == DBNull.Value) ? "0.00" : ((Decimal)objValue).ToString("N2");
+
+                            tdValueCell.Attributes.Add("Class", e.Item.ItemType == ListItemType.AlternatingItem ? "alternateincell" : "incell");
+                            tdValueCell.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                            tdValueCell.Attributes.Add("Align", "center");
+                            trItemRow.Cells.Add(tdValueCell);
+                        }
+                    }
+
+                    tdValueCell = new HtmlTableCell();
+
+                    objValue = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                             "ReferenceID = " + intInitiativeFinancialID.ToString());
+
+                    tdValueCell.InnerText = (objValue == DBNull.Value) ? "0.00" : ((Decimal)objValue).ToString("N2");
+                    tdValueCell.Attributes.Add("Class", e.Item.ItemType == ListItemType.AlternatingItem ? "alternateincell" : "incell");
+                    tdValueCell.Attributes.Add("Width", DefaultCellWidth);
+                    tdValueCell.Attributes.Add("Align", "center");
+
+                    trItemRow.Cells.Add(tdValueCell);
+
+                    tdValueCell = new HtmlTableCell();
+                    tdValueCell.Attributes.Add("Class", "emptynopadding");
+                    trItemRow.Cells.Add(tdValueCell);
+                }
+                else
+                {
+                    ImageButton imgDelete = (ImageButton)e.Item.FindControl("imgDelete");
+                    if (imgDelete != null) imgDelete.Visible = false;
+
+                    HtmlAnchor lnkAddFinancial = (HtmlAnchor)e.Item.FindControl("lnkAddFinancial");
+                    lnkAddFinancial.Attributes["onclick"] = "";
+                    lnkAddFinancial.HRef = "";
+
+                    HtmlTableCell tdValueCell;
+                    object objValue;
+                    HtmlTableRow trItemRow = (HtmlTableRow)e.Item.FindControl("trItem");
+
+                    foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                    {
+                        //if ((bool)drPeriod["HasQuarters"])
+                        if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                        {
+                            for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                            {
+                                tdValueCell = new HtmlTableCell();
+                                tdValueCell.InnerHtml = "&nbsp;";
+                                tdValueCell.Attributes.Add("Class", e.Item.ItemType == ListItemType.AlternatingItem ? "alternateincell" : "incell");
+                                tdValueCell.Attributes.Add("Width", DefaultCellWidth);
+                                tdValueCell.Attributes.Add("Align", "center");
+                                trItemRow.Cells.Add(tdValueCell);
+                            }
+                        }
+                        else
+                        {
+                            tdValueCell = new HtmlTableCell();
+                            tdValueCell.InnerHtml = "&nbsp;";
+                            tdValueCell.Attributes.Add("Class", e.Item.ItemType == ListItemType.AlternatingItem ? "alternateincell" : "incell");
+                            tdValueCell.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                            tdValueCell.Attributes.Add("Align", "center");
+                            trItemRow.Cells.Add(tdValueCell);
+                        }
+                    }
+
+                    tdValueCell = new HtmlTableCell();
+                    tdValueCell.InnerHtml = "&nbsp;";
+                    tdValueCell.Attributes.Add("Class", e.Item.ItemType == ListItemType.AlternatingItem ? "alternateincell" : "incell");
+                    tdValueCell.Attributes.Add("Width", DefaultCellWidth);
+                    tdValueCell.Attributes.Add("Align", "center");
+                    trItemRow.Cells.Add(tdValueCell);
+
+                    tdValueCell = new HtmlTableCell();
+                    tdValueCell.Attributes.Add("Class", "emptynopadding");
+                    trItemRow.Cells.Add(tdValueCell);
+                }
+            }
+        }
+
+
+        private void repeaters_DoDefaultFooterBind(object sender, RepeaterItemEventArgs e, string categoryFilter,
+                                                    string rowID, string style, string cssClass)
+        {
+            if (e.Item.ItemType == ListItemType.Footer)
+            {
+                HtmlTableCell tdTotalCell;
+                object objTotal;
+                HtmlTableRow trItemRow = (HtmlTableRow)e.Item.FindControl(rowID);
+
+                HtmlTableCell tdSpan = (HtmlTableCell)e.Item.FindControl("tdSpan");
+
+                if (tdSpan != null)
+                {
+                    tdSpan.Attributes["colspan"] = ((int)m_dsPeriod.Tables["Period"].Compute("COUNT(PeriodID)", "") +
+                                                    (int)m_dsPeriod.Tables["Period"].Compute("COUNT(PeriodID)*3", "HasQuarters=1")
+                                                         + 1).ToString();
+                }
+
+                foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                {
+                    //if ((bool)drPeriod["HasQuarters"])
+                    if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                    {
+                        for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                        {
+                            tdTotalCell = new HtmlTableCell();
+
+                            objTotal = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                                categoryFilter + " AND " +
+                                                                "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                                                "QuarterNo=" + quarterIndex.ToString());
+
+                            tdTotalCell.InnerText = (objTotal == DBNull.Value) ? "0.00" : ((Decimal)objTotal).ToString("N2");
+
+                            tdTotalCell.Attributes.Add("Class", cssClass);
+                            tdTotalCell.Attributes.Add("Width", DefaultCellWidth);
+                            tdTotalCell.Attributes.Add("Align", "center");
+                            tdTotalCell.Attributes.Add("style", style);
+                            trItemRow.Cells.Add(tdTotalCell);
+                        }
+                    }
+                    else
+                    {
+                        tdTotalCell = new HtmlTableCell();
+
+                        objTotal = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                            categoryFilter + " AND " +
+                                                            "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                                            "QuarterNo IS NULL");
+
+                        tdTotalCell.InnerText = (objTotal == DBNull.Value) ? "0.00" : ((Decimal)objTotal).ToString("N2");
+
+                        tdTotalCell.Attributes.Add("Class", cssClass);
+                        tdTotalCell.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                        tdTotalCell.Attributes.Add("Align", "center");
+                        tdTotalCell.Attributes.Add("style", style);
+                        trItemRow.Cells.Add(tdTotalCell);
+                    }
+                }
+
+                tdTotalCell = new HtmlTableCell();
+
+                objTotal = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                    categoryFilter);
+
+                tdTotalCell.InnerText = (objTotal == DBNull.Value) ? "0.00" : ((Decimal)objTotal).ToString("N2");
+                tdTotalCell.Attributes.Add("Class", cssClass);
+                tdTotalCell.Attributes.Add("Width", DefaultCellWidth);
+                tdTotalCell.Attributes.Add("Align", "center");
+                tdTotalCell.Attributes.Add("style", style);
+
+                trItemRow.Cells.Add(tdTotalCell);
+
+                tdTotalCell = new HtmlTableCell();
+                tdTotalCell.Attributes.Add("Class", "emptynopadding");
+                trItemRow.Cells.Add(tdTotalCell);
+            }
+        }
+
+
+        private void repeaters_DoDefaultDepreciationBind(object sender, RepeaterItemEventArgs e, int categoryID,
+                                                        string rowID, string style, string popupText)
+        {
+            if (e.Item.ItemType == ListItemType.Footer)
+            {
+                DataRow[] drRecords = m_dsFinancialRecords.Tables["FinancialRecords"].Select(
+                                    "CategoryID=" + categoryID.ToString());
+
+                ImageButton imgDelete = (ImageButton)e.Item.FindControl("imgDelete");
+                if (imgDelete != null)
+                {
+                    if (drRecords.Length > 0)
+                    {
+                        imgDelete.CommandArgument = drRecords[0]["InitiativeFinancialID"].ToString();
+
+                        if (categoryID == 9)
+                            imgDelete.Attributes.Add("onclick", "javascript: if (confirm('Are you sure you wish to clear RTB Existing values?')) AllowOneTimeSubmit(); else return false;");
+                        else
+                            imgDelete.Attributes.Add("onclick", "javascript: if (confirm('Are you sure you wish to clear depreciation values?')) AllowOneTimeSubmit(); else return false;");
+                    }
+                    else
+                    {
+                        imgDelete.Visible = false;
+                    }
+                }
+
+                HtmlTableCell tdDepreciationType = (HtmlTableCell)e.Item.FindControl("tdDepreciationType");
+                if (tdDepreciationType != null && drRecords.Length > 0)
+                {
+                    tdDepreciationType.InnerText = drRecords[0]["Type"].ToString();
+                }
+
+                HtmlTableCell tdDescription = (HtmlTableCell)e.Item.FindControl("tdDescription");
+
+                tdDescription.Attributes.Add("onMouseOver", "toolTip('" + popupText + "')");
+                tdDescription.Attributes.Add("onMouseOut", "toolTip()");
+
+                int intInitiativeFinancialID = 0;
+
+                if (drRecords.Length > 0)
+                {
+                    intInitiativeFinancialID = (int)drRecords[0]["InitiativeFinancialID"];
+
+                    HtmlAnchor aEditRecord = new HtmlAnchor();
+
+                    aEditRecord.InnerText = drRecords[0]["Description"].ToString();
+                    aEditRecord.HRef = "#";
+                    aEditRecord.Attributes.Add("onClick", "javascript: popupWindowEditFinancial(" +
+                                    drRecords[0]["InitiativeID"].ToString() + ", " +
+                                    categoryID.ToString() + ", " +
+                                    drRecords[0]["InitiativeFinancialID"].ToString() + "); " +
+                                    "return false; ");
+
+                    tdDescription.Controls.Add(aEditRecord);
+
+                    HtmlTableCell tdStartDate = (HtmlTableCell)e.Item.FindControl("tdStartDate");
+
+                    if (tdStartDate != null && categoryID != 9)
+                    {
+                        tdStartDate.InnerText = (drRecords[0]["StartDate"] != DBNull.Value) ? ((DateTime)drRecords[0]["StartDate"]).ToShortDateString() : String.Empty;
+                    }
+                }
+
+                HtmlTableCell tdDepreciationCell;
+                object objDepreciation;
+                HtmlTableRow trItemRow = (HtmlTableRow)e.Item.FindControl(rowID);
+
+                foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                {
+                    //if ((bool)drPeriod["HasQuarters"])
+                    if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                    {
+                        for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                        {
+                            DataRow[] drValues = m_dsInitiativeValues.Tables["InitiativeValue"].Select(
+                                              "ReferenceID = " + intInitiativeFinancialID.ToString() + " AND " +
+                                              "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                              "QuarterNo=" + quarterIndex.ToString());
+
+                            if (drValues.Length > 0) objDepreciation = drValues[0]["Amount"]; else objDepreciation = DBNull.Value;
+
+                            tdDepreciationCell = new HtmlTableCell();
+
+                            tdDepreciationCell.InnerText = (objDepreciation != DBNull.Value) ? ((Decimal)objDepreciation).ToString("N2") : "0.00";
+
+                            tdDepreciationCell.Attributes.Add("Class", "depreciationcell");
+                            tdDepreciationCell.Attributes.Add("Width", DefaultCellWidth);
+                            tdDepreciationCell.Attributes.Add("Align", "center");
+                            tdDepreciationCell.Attributes.Add("style", style);
+                            trItemRow.Cells.Add(tdDepreciationCell);
+                        }
+                    }
+                    else
+                    {
+                        DataRow[] drValues = m_dsInitiativeValues.Tables["InitiativeValue"].Select(
+                                          "ReferenceID = " + intInitiativeFinancialID.ToString() + " AND " +
+                                          "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                          "QuarterNo IS NULL");
+
+                        if (drValues.Length > 0)
+                            objDepreciation = drValues[0]["Amount"];
+                        else objDepreciation = DBNull.Value;
+
+                        tdDepreciationCell = new HtmlTableCell();
+
+                        tdDepreciationCell.InnerText = (objDepreciation != DBNull.Value) ? ((Decimal)objDepreciation).ToString("N2") : "0.00";
+
+                        tdDepreciationCell.Attributes.Add("Class", "depreciationcell");
+                        tdDepreciationCell.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                        tdDepreciationCell.Attributes.Add("Align", "center");
+                        tdDepreciationCell.Attributes.Add("style", style);
+                        trItemRow.Cells.Add(tdDepreciationCell);
+                    }
+                }
+
+                tdDepreciationCell = new HtmlTableCell();
+
+                objDepreciation = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                "ReferenceID = " + intInitiativeFinancialID.ToString());
+
+
+                tdDepreciationCell.InnerText = (objDepreciation != DBNull.Value) ? ((Decimal)objDepreciation).ToString("N2") : "0.00";
+
+                tdDepreciationCell.Attributes.Add("Class", "depreciationcell");
+                tdDepreciationCell.Attributes.Add("Width", DefaultCellWidth);
+                tdDepreciationCell.Attributes.Add("Align", "center");
+                tdDepreciationCell.Attributes.Add("style", style);
+
+                trItemRow.Cells.Add(tdDepreciationCell);
+
+                tdDepreciationCell = new HtmlTableCell();
+                tdDepreciationCell.Attributes.Add("Class", "emptynopadding");
+                trItemRow.Cells.Add(tdDepreciationCell);
+            }
+        }
+
+
+        private void repeaters_DoDefaultDepreciationBind(object sender, RepeaterItemEventArgs e, int categoryID, string rowID, string style)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                int intInitiativeID = 0;
+                intInitiativeID = (DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID") != DBNull.Value) ? ((int)DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID")) : -1;
+
+                //if (DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID") != DBNull.Value)
+                //{
+                ImageButton imgDelete = (ImageButton)e.Item.FindControl("imgDelete");
+                if (imgDelete != null)
+                {
+                    imgDelete.CommandArgument = DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID").ToString();
+
+                    if (intInitiativeID == -1)
+                        imgDelete.Visible = false;
+                    else
+                    {
+                        if (categoryID == 9)
+                            imgDelete.Attributes.Add("onclick", "javascript: if (confirm('Are you sure you wish to clear RTB Existing values?')) AllowOneTimeSubmit(); else return false;");
+                        else
+                            imgDelete.Attributes.Add("onclick", "javascript: if (confirm('Are you sure you wish to delete this depreciation?')) AllowOneTimeSubmit(); else return false;");
+                    }
+                }
+
+                HtmlTableCell tdDepreciationType = (HtmlTableCell)e.Item.FindControl("tdDepreciationType");
+                if (tdDepreciationType != null)
+                {
+                    tdDepreciationType.InnerText = DataBinder.Eval(e.Item.DataItem, "Type").ToString();
+                }
+
+                HtmlTableCell tdDesription = (HtmlTableCell)e.Item.FindControl("tdDescription");
+                if (tdDesription != null)
+                {
+                    Label aEditRecord = new Label();
+
+                    aEditRecord.Text = DataBinder.Eval(e.Item.DataItem, "Description").ToString();
+                    aEditRecord.Attributes.Add("onmouseover", "toolTip('To edit <b>Depreciation</b> please select the appropriate <b>CAPEX</b> item to edit');");
+                    aEditRecord.Attributes.Add("onmouseout", "toolTip();");
+
+                    tdDesription.Controls.Add(aEditRecord);
+                }
+
+                HtmlTableCell tdStartDate = (HtmlTableCell)e.Item.FindControl("tdStartDate");
+                if (tdStartDate != null && categoryID != 9)
+                {
+                    tdStartDate.InnerText = (DataBinder.Eval(e.Item.DataItem, "StartDate") != DBNull.Value) ? ((DateTime)DataBinder.Eval(e.Item.DataItem, "StartDate")).ToShortDateString() : String.Empty;
+                }
+
+                HtmlTableCell tdDepreciationCell;
+                object objDepreciation;
+                HtmlTableRow trItemRow = (HtmlTableRow)e.Item.FindControl(rowID);
+
+                int intInitiativeFinancialID = 0;
+                intInitiativeFinancialID = (DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID") != DBNull.Value) ? (int)DataBinder.Eval(e.Item.DataItem, "InitiativeFinancialID") : -1;
+
+                foreach (DataRow drPeriod in m_dsPeriod.Tables["Period"].Rows)
+                {
+                    //if ((bool)drPeriod["HasQuarters"])
+                    if (Convert.ToInt16(drPeriod["HasQuarters"]) == 1)
+                    {
+                        for (int quarterIndex = 1; quarterIndex <= 4; quarterIndex++)
+                        {
+                            DataRow[] drValues = m_dsInitiativeValues.Tables["InitiativeValue"].Select(
+                                              "ReferenceID = " + intInitiativeFinancialID.ToString() + " AND " +
+                                              "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                              "QuarterNo=" + quarterIndex.ToString());
+
+                            if (drValues.Length > 0) objDepreciation = drValues[0]["Amount"]; else objDepreciation = DBNull.Value;
+
+                            tdDepreciationCell = new HtmlTableCell();
+                            if (intInitiativeID > 0)
+                                tdDepreciationCell.InnerText = (objDepreciation != DBNull.Value) ? ((Decimal)objDepreciation).ToString("N2") : "0.00";
+                            else
+                                tdDepreciationCell.InnerText = "";
+
+                            if (e.Item.ItemType == ListItemType.Item)
+                                tdDepreciationCell.Attributes.Add("Class", "depreciationcell");
+                            else
+                                tdDepreciationCell.Attributes.Add("Class", "altdepreciationcell");
+
+                            tdDepreciationCell.Attributes.Add("Width", DefaultCellWidth);
+                            tdDepreciationCell.Attributes.Add("Align", "center");
+                            tdDepreciationCell.Attributes.Add("style", style);
+                            trItemRow.Cells.Add(tdDepreciationCell);
+                        }
+                    }
+                    else
+                    {
+                        DataRow[] drValues = m_dsInitiativeValues.Tables["InitiativeValue"].Select(
+                                          "ReferenceID = " + intInitiativeFinancialID.ToString() + " AND " +
+                                          "PeriodID=" + drPeriod["PeriodID"].ToString() + " AND " +
+                                          "QuarterNo IS NULL");
+
+                        if (drValues.Length > 0)
+                            objDepreciation = drValues[0]["Amount"];
+                        else objDepreciation = DBNull.Value;
+
+                        tdDepreciationCell = new HtmlTableCell();
+
+                        if (intInitiativeID > 0)
+                            tdDepreciationCell.InnerText = (objDepreciation != DBNull.Value) ? ((Decimal)objDepreciation).ToString("N2") : "0.00";
+                        else
+                            tdDepreciationCell.InnerText = "";
+
+                        if (e.Item.ItemType == ListItemType.Item)
+                            tdDepreciationCell.Attributes.Add("Class", "depreciationcell");
+                        else
+                            tdDepreciationCell.Attributes.Add("Class", "altdepreciationcell");
+
+                        tdDepreciationCell.Attributes.Add("Width", drPeriod["Name"].ToString().StartsWith("PRE") ? Pre2006CellWidth : DefaultCellWidth);
+                        tdDepreciationCell.Attributes.Add("Align", "center");
+                        tdDepreciationCell.Attributes.Add("style", style);
+                        trItemRow.Cells.Add(tdDepreciationCell);
+                    }
+                }
+
+                tdDepreciationCell = new HtmlTableCell();
+
+                objDepreciation = m_dsInitiativeValues.Tables["InitiativeValue"].Compute("SUM(Amount)",
+                                                "ReferenceID = " + intInitiativeFinancialID.ToString());
+
+                if (intInitiativeID > 0)
+                    tdDepreciationCell.InnerText = (objDepreciation != DBNull.Value) ? ((Decimal)objDepreciation).ToString("N2") : "0.00";
+                else
+                    tdDepreciationCell.InnerText = "";
+
+                if (e.Item.ItemType == ListItemType.Item)
+                    tdDepreciationCell.Attributes.Add("Class", "depreciationcell");
+                else
+                    tdDepreciationCell.Attributes.Add("Class", "altdepreciationcell");
+
+                tdDepreciationCell.Attributes.Add("Width", DefaultCellWidth);
+                tdDepreciationCell.Attributes.Add("Align", "center");
+                tdDepreciationCell.Attributes.Add("style", style);
+
+                trItemRow.Cells.Add(tdDepreciationCell);
+
+                tdDepreciationCell = new HtmlTableCell();
+                tdDepreciationCell.Attributes.Add("Class", "emptynopadding");
+                trItemRow.Cells.Add(tdDepreciationCell);
+
+                // }
+            }
+        }
+
+
+        protected void repeaters_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "Delete":
+
+                    if (e.CommandArgument != null && e.CommandArgument != String.Empty)
+                    {
+                        int intInitiativeFinancialID = Int32.Parse(e.CommandArgument.ToString());
+                        SectionC_DB.DeleteInitiativeFinancial(nInitiativeID, intInitiativeFinancialID);
+
+                        DataRow[] drDeletedRecords;
+
+                        drDeletedRecords = m_dsFinancialRecords.Tables["FinancialRecords"].Select(
+                                                                "InitiativeID=" + nInitiativeID.ToString() +
+                                                                " AND InitiativeFinancialID=" + intInitiativeFinancialID.ToString());
+
+                        foreach (DataRow drRecord in drDeletedRecords)
+                        {
+                            m_dsFinancialRecords.Tables["FinancialRecords"].Rows.Remove(drRecord);
+                        }
+
+                        drDeletedRecords = m_dsInitiativeValues.Tables["InitiativeValue"].Select
+                                                                ("InitiativeID=" + nInitiativeID.ToString() +
+                                                                " AND ReferenceID=" + intInitiativeFinancialID.ToString());
+
+                        foreach (DataRow drRecord in drDeletedRecords)
+                        {
+                            m_dsInitiativeValues.Tables["InitiativeValue"].Rows.Remove(drRecord);
+                        }
+                    }
+
+                    BindRepeaters();
+
+                    //rev 1.2.1 CA
+                    Response.Redirect("~/default.aspx?section=2&InitiativeID=" + nInitiativeID.ToString());
+                    //end rev 1.2.1
+
+                    break;
+
+
+                case "Clear":
+
+                    if (e.CommandArgument != null && e.CommandArgument != String.Empty)
+                    {
+                        int intInitiativeFinancialID = Int32.Parse(e.CommandArgument.ToString());
+
+                        SectionC_DB.ClearInitiativeFinancial(nInitiativeID, intInitiativeFinancialID);
+                        SectionC_DB.ClearInitiativeFinancialValues(nInitiativeID, intInitiativeFinancialID);
+
+                        DataRow[] drClearedRecords;
+
+                        drClearedRecords = m_dsFinancialRecords.Tables["FinancialRecords"].Select(
+                                                                "InitiativeID=" + nInitiativeID.ToString() +
+                                                                " AND InitiativeFinancialID=" + intInitiativeFinancialID.ToString());
+
+                        foreach (DataRow drRecord in drClearedRecords)
+                        {
+                            drRecord["StartDate"] = DBNull.Value;
+                        }
+
+                        drClearedRecords = m_dsInitiativeValues.Tables["InitiativeValue"].Select
+                                                                ("InitiativeID=" + nInitiativeID.ToString() +
+                                                                " AND ReferenceID=" + intInitiativeFinancialID.ToString());
+
+                        foreach (DataRow drRecord in drClearedRecords)
+                        {
+                            drRecord["Amount"] = 0.0d;
+                        }
+                    }
+
+                    BindRepeaters();
+
+                    break;
+            }
+        }
+    }
+}
